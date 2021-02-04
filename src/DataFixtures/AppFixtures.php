@@ -20,7 +20,7 @@ class AppFixtures extends Fixture
             $doc1->setDocref('reference 1da');
         //    $doc->setCreatedAt('2021-02-04  10:46:58');
             $manager->persist($doc1);
-                        
+            $manager->flush();              
          // creation  actualités
          
  
