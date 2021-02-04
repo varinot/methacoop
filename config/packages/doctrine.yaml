@@ -16,3 +16,11 @@ doctrine:
                 dir: '%kernel.project_dir%/src/Entity'
                 prefix: 'App\Entity'
                 alias: App
+    # only these lines are added additionally
+        
+     #       translatable:
+      #          type: annotation
+       #         alias: Gedmo
+        #        prefix: Gedmo\Translatable\Entity
+                # make sure vendor library location is correct
+         #       dir: "%kernel.project_dir%/../vendor/gedmo/doctrine-extensions/src/Translatable/Entity"
