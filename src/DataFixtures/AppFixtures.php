@@ -5,8 +5,7 @@ use App\Entity\Docs;
 use App\Entity\News;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
-use Gedmo\Mapping\Annotation as Gedmo; // gedmo annotations
-use Gedmo\Timestampable\Traits\TimestampableEntity;
+
 
 class AppFixtures extends Fixture
 {

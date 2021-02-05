@@ -1,9 +1,9 @@
 <?php
 
 namespace App\Entity;
-
-use App\Repository\DocsRepository;
 use Doctrine\ORM\Mapping as ORM;
+use App\Repository\DocsRepository;
+
 
 /**
  * @ORM\Entity(repositoryClass=DocsRepository::class)
