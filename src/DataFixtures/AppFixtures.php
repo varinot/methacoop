@@ -5,8 +5,7 @@ use App\Entity\Docs;
 use App\Entity\News;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
-use Gedmo\Mapping\Annotation as Gedmo; // gedmo annotations
-use Gedmo\Timestampable\Traits\TimestampableEntity;
+
 
 class AppFixtures extends Fixture
 {
@@ -20,7 +19,7 @@ class AppFixtures extends Fixture
             $doc1->setDocref('reference 1da');
         //    $doc->setCreatedAt('2021-02-04  10:46:58');
             $manager->persist($doc1);
-                        
+            $manager->flush();              
          // creation  actualités
          
  

@@ -4,8 +4,7 @@ namespace App\Entity;
 
 use App\Repository\NewsRepository;
 use Doctrine\ORM\Mapping as ORM;
-use Gedmo\Mapping\Annotation as Gedmo; // gedmo annotations
-use Gedmo\Timestampable\Traits\TimestampableEntity;
+
 /**
  * @ORM\Entity(repositoryClass=NewsRepository::class)
  */
@@ -30,7 +29,6 @@ class News
 
     /**
      * @ORM\Column(type="datetime", options={"default": "CURRENT_TIMESTAMP"})
-     * @Gedmo\Timestampable(on="create")
      */
     private $createdAt;
 

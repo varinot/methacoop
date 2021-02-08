@@ -1,11 +1,10 @@
 <?php
 
 namespace App\Entity;
-
-use App\Repository\DocsRepository;
 use Doctrine\ORM\Mapping as ORM;
-use Gedmo\Mapping\Annotation as Gedmo; // gedmo annotations
-use Gedmo\Timestampable\Traits\TimestampableEntity;
+use App\Repository\DocsRepository;
+
+
 /**
  * @ORM\Entity(repositoryClass=DocsRepository::class)
  */
@@ -30,7 +29,6 @@ class Docs
 
     /**
      * @ORM\Column(type="datetime", options={"default": "CURRENT_TIMESTAMP"})
-     * @Gedmo\Timestampable(on="create")
      */
     private $createdAt;
 
