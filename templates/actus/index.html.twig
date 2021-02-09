@@ -9,12 +9,14 @@
 </style>
 
 <div class="example-wrapper">
-    <h1>LES NEWS </h1>
+    <h1>LES ACTUALITÉS </h1>
 
-    
-    <ul>
-        <li>Your controller at <code><a href="{{ '/opt/lampp/htdocs/methacoop/src/Controller/ActusController.php'|file_link(0) }}">src/Controller/ActusController.php</a></code></li>
-        <li>Your template at <code><a href="{{ '/opt/lampp/htdocs/methacoop/templates/actus/index.html.twig'|file_link(0) }}">templates/actus/index.html.twig</a></code></li>
-    </ul>
+    {% for new in news %}
+    <div>
+        <h2>{{ new.newstit }} titre de l'actu</h2>
+        <p>{{ new.newscont }} </p>
+    </div>
+    {% endfor %}
+
 </div>
 {% endblock %}
