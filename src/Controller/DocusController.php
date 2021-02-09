@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Repository\DocsRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -11,10 +12,10 @@ class DocusController extends AbstractController
     /**
      * @Route("/docus", name="docus")
      */
-    public function index(): Response
+    public function index(DocsRepository $docsRepository): Response
     {
-        return $this->render('docus/index.html.twig', [
-            'controller_name' => 'DocusController',
-        ]);
+        $docs = $docsRepository->findBy([''], ['createdAt' => 'DESC']);
+        
+        return $this->render('docus/index.html.twig', compact('docs'));
     }
 }
