@@ -13,7 +13,7 @@
 
     {% for new in news %}
     <div>
-        <h2>{{ new.newstit }} titre de l'actu</h2>
+        <h2><a href="{{ path('actus_montrer', {id: new.id}) }}">{{ new.newstit }} </a></h2>
         <p>{{ new.newscont }} </p>
     </div>
     {% endfor %}

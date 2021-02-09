@@ -18,5 +18,13 @@ class ActusController extends AbstractController
         return $this->render('actus/index.html.twig', compact('news'));
     }
 
-    
+    /**
+     * @Route("/actus/{id}", name="actus_montrer")
+     */
+    public function montrer($id): Response
+    {  
+        $news = $newsRepository = $this->getdoctrine()->getRepository(NewsRepository::class);
+        $news = $newsRepository->find($id);      
+        return $this->render('actus/montrer.html.twig', ['new' => $news]);
+    }
 }
