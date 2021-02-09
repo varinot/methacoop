@@ -11,10 +11,12 @@
 <div class="example-wrapper">
     <h1>LA DOCUMENTATION </h1>
 
+    {% for doc in docs %}
+    <div>
+        <h2>{{ doc.doctit }} titre de la documentation</h2>
+        <p>{{ doc.docref }} </p>
+    </div>
+    {% endfor %}   
     
-    <ul>
-        <li>Your controller at <code><a href="{{ '/opt/lampp/htdocs/methacoop/src/Controller/DocusController.php'|file_link(0) }}">src/Controller/DocusController.php</a></code></li>
-        <li>Your template at <code><a href="{{ '/opt/lampp/htdocs/methacoop/templates/docus/index.html.twig'|file_link(0) }}">templates/docus/index.html.twig</a></code></li>
-    </ul>
 </div>
 {% endblock %}
