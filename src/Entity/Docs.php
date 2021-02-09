@@ -7,6 +7,7 @@ use App\Repository\DocsRepository;
 
 /**
  * @ORM\Entity(repositoryClass=DocsRepository::class)
+ * @ORM\HasLifecycleCallbacks
  */
 class Docs
 {
@@ -72,4 +73,15 @@ class Docs
 
         return $this;
     }
+
+    /**
+     * @ORM\PrePersist
+     * @ORM\PreUpdate
+     */ 
+    
+    public function Majtemps()
+    {
+        $this->setCreatedAt(new \DateTimeImmutable());
+    }
+
 }

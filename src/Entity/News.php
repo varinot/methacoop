@@ -7,6 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Entity(repositoryClass=NewsRepository::class)
+ * @ORM\HasLifecycleCallbacks
  */
 class News
 {
@@ -72,4 +73,15 @@ class News
 
         return $this;
     }
+
+    /**
+     * @ORM\PrePersist
+     * @ORM\PreUpdate
+     */ 
+    
+    public function Majtemps()
+    {
+        $this->setCreatedAt(new \DateTimeImmutable());
+    }
+
 }
