@@ -13,7 +13,7 @@ class ActusController extends AbstractController
      */
     public function index(NewsRepository $newsRepository): Response
     {
-        $news = $newsRepository->findBy([''], ['createdAt' => 'DESC']);
+        $news = $newsRepository->findBy([], ['createdAt' => 'DESC']);
 
         return $this->render('actus/index.html.twig', compact('news'));
     }

@@ -14,7 +14,7 @@ class DocusController extends AbstractController
      */
     public function index(DocsRepository $docsRepository): Response
     {
-        $docs = $docsRepository->findBy([''], ['createdAt' => 'DESC']);
+        $docs = $docsRepository->findBy([], ['createdAt' => 'DESC']);
         
         return $this->render('docus/index.html.twig', compact('docs'));
     }
