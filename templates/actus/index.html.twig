@@ -14,7 +14,7 @@
     {% for new in news %}
     <div>
         <h2><a href="{{ path('actus_montrer', {id: new.id}) }}">{{ new.newstit }} </a></h2>
-        <p>{{ new.newscont }} </p>
+        {#<p>{{ [new.createdAt] }} </p>#}
     </div>
     {% endfor %}
 
