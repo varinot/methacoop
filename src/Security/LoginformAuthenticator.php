@@ -71,7 +71,7 @@ class LoginformAuthenticator extends AbstractFormLoginAuthenticator implements P
 
         if (!$user) {
             // fail authentication with a custom error
-            throw new CustomUserMessageAuthenticationException('Email could not be found.');
+            throw new CustomUserMessageAuthenticationException('Email inconnu pour identification vous devez vous inscrire préalablement.');
         }
 
         return $user;
