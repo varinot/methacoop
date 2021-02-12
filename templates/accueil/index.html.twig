@@ -3,25 +3,24 @@
 {% block title %}METHACOOP ACCUEIL{% endblock %}
 
 {% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
 
-<div class="example-wrapper">
-    <h1>ACCUEIL</h1>
+<div class="row">
 
-    <h2>METHACOOP</h2>
-
-
-    <p> LIENS UTILES </p>
-
-    <ul>
-        <li><a href="#">src/Controller/AccueilController.php</a></li>
-        <li><a href="#"></a></li>
-    </ul>
+    <div class="col-md-2 mx-auto text-center">
+        <h1 class="my-5">METHACOOP page d'ACCUEIL</h1>
+    </div>
+    <div class="col-md-6 mx-auto text-left">
+        <h2 class="my-5">LIENS UTILES</h2>
+        <p>  </p>
+        <ul>
+        <li><a href="https://www.data.gouv.fr/fr/datasets/unites-de-methanisation-france-metropole/" target="_blank">Implantations site ministériel</a></li>
+        <li><a href="https://www.ecologie.gouv.fr/biogaz" target="_blank">Biogaz site ministériel </a></li>
+        <li><a href="https://atee.fr/energies-renouvelables/club-biogaz" target="_blank">Energies renouvelables site ATEE </a></li>
+        <li><a href="https://www.sinoe.org" target="_blank">LE site de l'ADEME </a></li>
+        <li><a href="https://projet-methanisation.grdf.fr/" target="_blank">Projet méthanisation avec GRDF </a></li>
+        </ul>
 </div>
-<div>
-    <button type="submit" class="btn">INSCRIPTION</button>
+<div class="pt-4">
+    <a href="{{ path('app_register') }}" class="btn btn-light">INSCRIPTION</a>
 </div>    
 {% endblock %}

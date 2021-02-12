@@ -24,6 +24,8 @@ security:
                 authenticators:
                     - App\Security\LoginformAuthenticator
             logout:
+            # ajout de la gestion des failles csrf
+                csrf_token_generator: Symfony\Component\Security\Csrf\CsrfTokenManagerInterface
                 path: app_logout
                 # where to redirect after logout
                 # target: app_any_route

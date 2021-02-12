@@ -3,8 +3,12 @@
 {% block title %}METHACOOP Inscription{% endblock %}
 
 {% block body %}
+    <div class="row">
+        <div class="col-md-2">
+        </div>
+    </div>    
     {% for flashError in app.flashes('verify_email_error') %}
-        <div class="alert alert-danger" role="alert">{{ flashError }}</div>
+        <div class="alert alert-error" role="alert">{{ flashError }}</div>
     {% endfor %}
 
     <h1>CREATION  DE COMPTE MEMBRE</h1>

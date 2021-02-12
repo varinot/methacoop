@@ -28,6 +28,14 @@ class AppFixtures extends Fixture
             $actu1->setNewscont('contenu actu 1a');
          //    $actu->setCreatedAt = new \DateTime('NOW');
             $manager->persist($actu1);
-            $manager->flush();                      
+            $manager->flush(); 
+            
+            for ($i = 0; $i < 10; $i++) {
+                $actu = new News();
+                $actu->setNewstit('actualité '.$i);
+                $actu->setNewscont('contenu actu  '.$i);
+                $manager->persist($actu);
+            }
+                $manager->flush();
     }
 }
