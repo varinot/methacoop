@@ -9,11 +9,11 @@
 </style>
 
 <div class="example-wrapper">
-    <h1>LA DOCUMENTATION </h1>
+    <h1>LES DOCUMENTATIONS </h1>
 
     {% for doc in docs %}
     <div>
-        <h2><a href="#">{{ doc.doctit }} titre de la documentation</a></h2>
+        <h2><a href="{{ path('app_docus_détail_doc', {id: doc.id}) }}">{{ doc.doctit }} > titre de la documentation</a></h2>
         <p>{{ doc.docref }} </p>
     </div>
     {% endfor %}   

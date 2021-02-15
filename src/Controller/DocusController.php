@@ -17,17 +17,15 @@ class DocusController extends AbstractController
     {
         $docs = $docsRepository->findBy([], ['createdAt' => 'DESC']);
         
-        return $this->render('docus/index.html.twig', compact('docs'));
+        return $this->render('docus/index.html.twig', ['docs' => $docs]);
     }
 
     /**
-     * @Route("/docus/montrer/{id<[0-9]+>}", name="docus_montrer")
+     * @Route("/docus/{id}", name="app_docus_détail_doc")
      */
-    public function montrer($id): Response
+    public function montrer(Docs $doc): Response
     {
-         $docsRepository = $this->getdoctrine()->getRepository(Docs::class);
-        $doc = $docsRepository->find($id);
-
-        return $this->render('docus/montrer.html.twig', ['doc' => $doc]);
+       
+        return $this->render('docus/détail_doc.html.twig',compact('doc'));
     }
 }
