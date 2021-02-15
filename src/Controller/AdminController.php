@@ -1,7 +1,8 @@
 <?php
 
 namespace App\Controller;
-
+use App\Repository\DocsRepository;
+use App\Repository\NewsRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -22,15 +23,15 @@ class AdminController extends AbstractController
     /**
      * @Route("/admin/gesactus", name="app_admin_gesactus")
      */
-    public function gesactus(): Response
-    {
-        return $this->render('admin/gesactus_index.html.twig');
+    public function gesactus(NewsRepository $newsRepository): Response
+    { $news = $newsRepository->findBy([], ['createdAt' => 'DESC']);
+        return $this->render('admin/gesactus_index.html.twig', compact('news'));
     }
     /**
      * @Route("/admin/gesdocs", name="app_admin_gesdocs")
      */
-    public function gesdocs(): Response
-    {
+    public function gesdocs(DocsRepository $docsRepository): Response
+    {$docs = $docsRepository->findBy([], ['createdAt' => 'DESC']);
         return $this->render('admin/gesdocs_index.html.twig');
     }
     /**
