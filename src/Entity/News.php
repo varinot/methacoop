@@ -45,7 +45,7 @@ class News
         return $this->newstit;
     }
 
-    public function setNewstit(string $newstit): self
+    public function setNewstit(?string $newstit): self
     {
         $this->newstit = $newstit;
 
