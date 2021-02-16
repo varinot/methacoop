@@ -9,12 +9,14 @@
 </style>
 
 <div class="example-wrapper">
-    <h1>GESTION DE LA DOCUMENTATION</h1>
+    <h1>GESTION DES DOCUMENTATIONS</h1>
 
     This friendly message is coming from:
-    <ul>
-        <li>Your controller at </li>
-        <li>Your template at </li>
-    </ul>
+    {% for doc in docs %}
+    <div>
+        <h2><a href="{{ path('app_admin_gesdocs_detail', {id: doc.id}) }}">{{ doc.doctit }} </a></h2>
+        {#<p>{{ [doc.createdAt] }} </p>#}
+    </div>
+    {% endfor %}
 </div>
 {% endblock %}

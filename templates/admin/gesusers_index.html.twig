@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}GESTION UTILISATEURS{% endblock %}
+{% block title %}GESTION MEMBRES{% endblock %}
 
 {% block body %}
 <style>
@@ -9,12 +9,14 @@
 </style>
 
 <div class="example-wrapper">
-    <h1>GESTION DES UTILISATEURS</h1>
+    <h1>GESTION DES MEMBRES UTILISATEURS</h1>
 
     This friendly message is coming from:
-    <ul>
-        <li>Your controller at </li>
-        <li>Your template at </li>
-    </ul>
+     {% for util in utils %}
+    <div>
+        <h2><a href="{{ path('app_admin_gesusers_detail', {id: util.id}) }}">{{ util.nom }} </a></h2>
+        {#<p>{{ [doc.createdAt] }} </p>#}
+    </div>
+    {% endfor %}
 </div>
 {% endblock %}

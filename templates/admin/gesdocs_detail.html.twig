@@ -1,0 +1,16 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Gestion Détail DOCUMENTATION {% endblock %}
+
+{% block body %}
+    <style>
+    .example-wrapper { margin: 1em auto; width: 95%; font: 18px/1.5 sans-serif; }
+    .example-wrapper code { background: grey; padding: 2px 6px; }
+    </style>
+    <h1>{{ doc.doctit }}</h1>
+    <br>
+       <p>{{ doc.docref }}</p> 
+    </br>
+    <a href="{{ path('app_admin_gesdocs')}}">retour gestion liste des documentations</a><br>
+    <a href="{{ path('app_admin')}}">retour espace administrateur</a>
+{% endblock %}

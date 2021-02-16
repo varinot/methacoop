@@ -1,0 +1,16 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Gestion Détail Actualité {% endblock %}
+
+{% block body %}
+    <style>
+    .example-wrapper { margin: 1em auto; width: 95%; font: 18px/1.5 sans-serif; }
+    .example-wrapper code { background: grey; padding: 2px 6px; }
+    </style>
+    <h1>{{ new.newstit }}</h1>
+    <br>
+       <p>{{ new.newscont }}</p> 
+    </br>
+    <a href="{{ path('app_admin_gesactus')}}">retour gestion liste des actualités</a><br>
+    <a href="{{ path('app_admin')}}">retour espace administrateur</a>
+{% endblock %}

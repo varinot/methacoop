@@ -12,9 +12,13 @@
     <h1>GESTION DES ACTUALITÉS</h1>
 
     This friendly message is coming from:
-    <ul>
-        <li>Your controller at </li>
-        <li>Your template at </li>
-    </ul>
+     {% for new in news %}
+    <div>
+        <h2><a href="{{ path('app_admin_gesactus_detail', {id: new.id}) }}">{{ new.newstit }} </a></h2>
+        {#<p>{{ [new.createdAt] }} </p>#}
+    </div>
+    {% endfor %}
+
+</div>
 </div>
 {% endblock %}
