@@ -15,7 +15,7 @@ use Symfony\Component\Routing\Annotation\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
-
+use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 /**
  * @[IsGranted("ROLE_ADMIN")]
  */
@@ -96,12 +96,45 @@ class AdminController extends AbstractController
         $utils = $userRepository->findBy([], ['createdAt' => 'DESC']);
         return $this->render('admin/gesusers_index.html.twig', compact('utils'));
     }
-/**
+
+    /**
+     * @Route("/admin/gesusers_ajout", name="app_admin_gesusers_ajout", methods={"GET", "POST"})
+     */
+    public function ajoututil(Request $request,EntityManagerInterface $em): Response
+    {  
+        $form = $this->createFormBuilder(new User)
+        ->add('nom', TextType::class)
+        ->add('prenom', TextType::class)
+        ->add('numvoie', TextType::class)
+        ->add('typvoie', TextType::class)
+        ->add('voienom', TextType::class)
+        ->add('codpost', TextType::class)
+        ->add('ville', TextType::class)
+        ->add('nbdepot', IntegerType::class)
+        ->add('roles', ArrayType::class) 
+        ->add('email', TextType::class)
+        ->add('password', TextType::class)
+        ->getForm();
+        $form->handleRequest($request);
+        
+        if ($form->isSubmitted() && $form->isValid())
+        {
+            $donnees = $form->getData();
+            $em->persist($donnees);
+            $em->flush();
+
+            return $this->redirectToRoute('app_admin_gesuser');
+        }
+            
+        return $this->render('admin/gesusers_ajout.html.twig', ['utilform' => $form->createView()]);
+    }
+
+    /**
      * @Route("/admin/gesusers_detail/{id}", name="app_admin_gesusers_detail")
      */
     public function utildetail(User $util): Response
     {  
-         dd($util);          
+                   
         return $this->render('admin/gesusers_detail.html.twig', compact('util'));
     }
 

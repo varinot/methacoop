@@ -1,18 +1,19 @@
-{% extends 'base.html.twig' %}
+extends 'base.html.twig' %}
 
-{% block title %}Ajout Actualité {% endblock %}
+{% block title %}Ajout Membre {% endblock %}
 
 {% block body %}
     <style>
     .example-wrapper { margin: 1em auto; width: 95%; font: 18px/1.5 sans-serif; }
     .example-wrapper code { background: grey; padding: 2px 6px; }
     </style>
-    <h1>AJOUTER UNE ACTUALITÉ</h1>
+    <h1>AJOUTER UN MEMBRE</h1>
     <br>
-       {{ form_start(actuform) }} 
-        {{ form_widget(actuform) }}
+       {{ form_start(utilform) }} 
+        {{ form_widget(utilform) }}
         <input type="submit" value="Validation de la Création"> 
-       {{ form_end(actuform) }} 
+       {{ form_end(utilform) }} 
+    
     </br>
     <a href="{{ path('app_admin')}}">retour espace administrateur</a>
     <a href="{{ path('accueil')}}">retour accueil</a>
