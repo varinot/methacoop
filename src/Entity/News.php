@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use App\Entity\Traits\Gestemps;
 use App\Repository\NewsRepository;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -11,6 +12,7 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class News
 {
+    use Gestemps;
     /**
      * @ORM\Id
      * @ORM\GeneratedValue
@@ -43,7 +45,7 @@ class News
         return $this->newstit;
     }
 
-    public function setNewstit(string $newstit): self
+    public function setNewstit(?string $newstit): self
     {
         $this->newstit = $newstit;
 
@@ -74,14 +76,6 @@ class News
         return $this;
     }
 
-    /**
-     * @ORM\PrePersist
-     * @ORM\PreUpdate
-     */ 
-    
-    public function Majtemps()
-    {
-        $this->setCreatedAt(new \DateTimeImmutable());
-    }
+   
 
 }

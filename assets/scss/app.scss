@@ -1,0 +1,41 @@
+@import url('https:fonts.googleapis.com/css2?family=Arial&display=swap');
+
+@import 'shared/variables';
+
+@import"~bootstrap";
+
+body{
+    font-family: $primary-font, Montserrat;
+}
+
+.alert {
+    padding: 15px;
+    color: gray;
+    text-align: center;
+    margin: 1;
+    border: blueviolet;
+    border-radius: 10%;
+    
+    &.alert-success {
+        background-color: chartreuse;
+    }
+    
+    &.alert-error {
+        background-color: coral;
+    }
+
+    &.alert-info {
+        background-color: cornflowerblue;
+    }
+
+.vich-image {
+    .form-check{
+        @extend .mt-4;
+    }
+
+    img {
+        @extend .mb-3, .rounded, .img-thumbnail;
+    }
+}
+
+}

@@ -1,0 +1,36 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}METHACOOP Inscription{% endblock %}
+
+{% block body %}
+    <div class="row">
+        <div class="col-md-2">
+        </div>
+    </div>    
+    {% for flashError in app.flashes('verify_email_error') %}
+        <div class="alert alert-error" role="alert">{{ flashError }}</div>
+    {% endfor %}
+
+    <h1>CREATION  DE COMPTE MEMBRE</h1>
+    {# ajout des champs des propriétés utilisateurs 
+       les form_row comprennent le texte du champs label 
+       et affichage d'erreurs et champs de saisie widgets
+       et affichage des aides help #}
+ 
+    {{ form_start(registrationForm) }}
+        {{ form_row(registrationForm.nom, {label: 'entrez votre nom ou raison sociale  '}) }}
+        {{ form_row(registrationForm.prenom, {label: 'entrez votre prénom ou numéro siret  '}) }}
+        {{ form_row(registrationForm.numvoie, {label: 'entrez le numéro de voie de votre adresse  '}) }}
+        {{ form_row(registrationForm.typvoie, {label: 'entrez le type de voie (avenue ou boulevard ou rue ou autre) de votre adresse  '}) }}
+        {{ form_row(registrationForm.voienom, {label: 'entrez le nom de la voie de votre adresse  '}) }}
+        {{ form_row(registrationForm.codpost, {label: 'entrez le code postal de votre adresse  '}) }}
+        {{ form_row(registrationForm.ville, {label: 'entrez la ville de votre adresse  '}) }}
+                
+        {{ form_row(registrationForm.email, {label: 'saisissez votre adresse mail  '}) }}
+        {{ form_row(registrationForm.plainPassword, {
+            label: 'saisissez un Mot de Passe  '}) }}
+        {{ form_row(registrationForm.agreeTerms, {label: 'vous acceptez les C.G.U. du site '}) }}
+
+        <button type="submit" class="btn">Enregistrer</button>
+    {{ form_end(registrationForm) }}
+{% endblock %}
