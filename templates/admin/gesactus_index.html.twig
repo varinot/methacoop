@@ -10,9 +10,8 @@
 
 <div class="example-wrapper">
     <h1>GESTION DES ACTUALITÉS</h1>
-
-    This friendly message is coming from:
-     {% for new in news %}
+    <br>
+    {% for new in news %}
     <div>
         <h2><a href="{{ path('app_admin_gesactus_detail', {id: new.id}) }}">{{ new.newstit }} </a></h2>
         {#<p>{{ [new.createdAt] }} </p>#}
@@ -23,5 +22,5 @@
         {#<p>{{ [new.createdAt] }} </p>#}
     </div>
 </div>
-</div>
+
 {% endblock %}

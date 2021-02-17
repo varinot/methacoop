@@ -4,6 +4,7 @@ namespace App\Controller;
 use App\Entity\News;
 use App\Entity\Docs;
 use App\Entity\User;
+use App\Form\DocuType;
 use App\Repository\DocsRepository;
 use App\Repository\NewsRepository;
 use App\Repository\UserRepository;
@@ -23,6 +24,7 @@ use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 
 class AdminController extends AbstractController
 {
+   
     /**
      * @Route("/admin", name="app_admin")
      */
@@ -87,6 +89,29 @@ class AdminController extends AbstractController
     {  
                    
         return $this->render('admin/gesdocs_detail.html.twig', compact('doc'));
+    }
+
+    /**
+     * @Route("/admin/gesdocs_ajout", name="app_admin_gesdocs_ajout", methods={"GET", "POST"})
+     */
+    public function docusajout(Request $request, EntityManagerInterface $em): Response 
+    { 
+        $doc = new Docs;
+
+        $form = $this->createForm(DocuType::class, $doc);
+         
+        $form->handleRequest($request);
+        
+        if ($form->isSubmitted() && $form->isValid())
+        {
+            $donnees = $form->getData();
+            
+            $em->flush();
+
+            return $this->redirectToRoute('app_admin_gesdocs');
+        }
+
+        return $this->render('admin/gesdocs_ajout.html.twig', ['docuform' => $form->createView()]);
     }
 
     /**

@@ -10,13 +10,17 @@
 
 <div class="example-wrapper">
     <h1>GESTION DES DOCUMENTATIONS</h1>
-
-   
+    <br>
+    </br>
     {% for doc in docs %}
     <div>
         <h2><a href="{{ path('app_admin_gesdocs_detail', {id: doc.id}) }}">{{ doc.doctit }} </a></h2>
         {#<p>{{ [doc.createdAt] }} </p>#}
     </div>
     {% endfor %}
-</div>
+    <div>
+        <h2><a href="{{ path('app_admin_gesdocs_ajout') }}"> Ajout de Documentation</a></h2>
+        {#<p>{{ [doc.createdAt] }} </p>#}
+    </div>
+
 {% endblock %}
