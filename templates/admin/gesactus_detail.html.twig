@@ -10,6 +10,7 @@
     <h1>{{ new.newstit }}</h1>
     <br>
        <p>{{ new.newscont }}</p> 
+       <p>créé le {{ new.createdAt|date }} </p> 
     </br>
     <a href="{{ path('app_admin_gesactus')}}">retour gestion liste des actualités</a><br>
     <a href="{{ path('app_admin')}}">retour espace administrateur</a>

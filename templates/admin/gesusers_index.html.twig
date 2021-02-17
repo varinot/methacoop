@@ -10,17 +10,19 @@
 
 <div class="example-wrapper">
     <h1>GESTION DES MEMBRES UTILISATEURS</h1>
-
-    This friendly message is coming from:
-     {% for util in utils %}
+    {% for util in utils %}
     <div>
         <h2><a href="{{ path('app_admin_gesusers_detail', {id: util.id}) }}">{{ util.nom }} </a></h2>
-        {#<p>{{ [doc.createdAt] }} </p>#}
+        <p>créé le {{ util.createdAt|date }} </p>
     </div>
+    
     {% endfor %}
     <div>
         <h2><a href="{{ path('app_admin_gesusers_ajout') }}">AJOUT D'UN MEMBRE </a></h2>
-        {#<p>{{ [doc.createdAt] }} </p>#}
+        {#<p> </p>#}
+        <b>
+        <a href="{{ path('app_admin')}}">retour espace administrateur</a>
+        </b>
     </div>
 </div>
 {% endblock %}

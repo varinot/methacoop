@@ -14,12 +14,11 @@
     {% for new in news %}
     <div>
         <h2><a href="{{ path('app_admin_gesactus_detail', {id: new.id}) }}">{{ new.newstit }} </a></h2>
-        {#<p>{{ [new.createdAt] }} </p>#}
+        <p>créé le {{ new.createdAt|date }} </p>
     </div>
     {% endfor %}
     <div>
         <h2><a href="{{ path('app_admin_gesactus_ajout') }}">AJOUT D'ACTUALITÉ</a></h2>
-        {#<p>{{ [new.createdAt] }} </p>#}
     </div>
 </div>
 

@@ -19,11 +19,16 @@
         <p>ville adresse  : {{ util.ville }}</p><br>
         <p>nombre de dépôts : {{ util.nbdepot}}</p><br>              
         <p> adresse mail : {{ util.email}}</p><br>
-       
+        <p>créé le {{ util.createdAt|date }} </p>
         <p>Mot de Passe  : {{ util.password }}</p> 
     <br>
     <a href="{{ path('app_admin_gesusers_maj', {id: util.id})}}">  mise à jour du membre</a>
     </br>
+    <form action="{{ path('app_admin_gesusers_supp',{id: util.id}) }}" method="post">
+        <input type="hidden" name="_method" value="DELETE">
+        <input type="submit" value="Suppression"> 
+    </form><br>
+    <br>
     <a href="{{ path('app_admin_gesusers')}}">retour gestion liste des membres</a><br>
     <a href="{{ path('app_admin')}}">retour espace administrateur</a>
 {% endblock %}

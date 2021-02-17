@@ -10,6 +10,7 @@
     <h1>{{ doc.doctit }}</h1>
     <br>
        <p>{{ doc.docref }}</p> 
+       <p>créé le {{ doc.createdAt|date }} </p> 
     </br>
     <form action="{{ path('app_admin_gesdocs_supp',{id: doc.id}) }}" method="post">
         <input type="hidden" name="_method" value="DELETE">

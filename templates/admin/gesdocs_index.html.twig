@@ -15,7 +15,7 @@
     {% for doc in docs %}
     <div>
         <h2><a href="{{ path('app_admin_gesdocs_detail', {id: doc.id}) }}">{{ doc.doctit }} </a></h2>
-        {#<p>{{ [doc.createdAt] }} </p>#}
+        <p>créé le {{ doc.createdAt|date }} </p>
     </div>
     {% endfor %}
     <div>
