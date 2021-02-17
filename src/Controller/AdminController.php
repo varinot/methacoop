@@ -82,14 +82,6 @@ class AdminController extends AbstractController
         $docs = $docsRepository->findBy([], ['createdAt' => 'DESC']);
         return $this->render('admin/gesdocs_index.html.twig', compact('docs'));
     }
-    /**
-     * @Route("/admin/gesdocs_detail/{id}", name="app_admin_gesdocs_detail")
-     */
-    public function docdetail(Docs $doc): Response
-    {  
-                   
-        return $this->render('admin/gesdocs_detail.html.twig', compact('doc'));
-    }
 
     /**
      * @Route("/admin/gesdocs_ajout", name="app_admin_gesdocs_ajout", methods={"GET", "POST"})
@@ -104,14 +96,21 @@ class AdminController extends AbstractController
         
         if ($form->isSubmitted() && $form->isValid())
         {
-            $donnees = $form->getData();
+            $em->persist($doc);
             
             $em->flush();
-
+            
             return $this->redirectToRoute('app_admin_gesdocs');
         }
-
         return $this->render('admin/gesdocs_ajout.html.twig', ['docuform' => $form->createView()]);
+    }
+    /**
+     * @Route("/admin/gesdocs_detail/{id}", name="app_admin_gesdocs_detail")
+     */
+    public function docdetail(Docs $doc): Response
+    {  
+                   
+        return $this->render('admin/gesdocs_detail.html.twig', compact('doc'));
     }
 
     /**
@@ -198,10 +197,22 @@ class AdminController extends AbstractController
     }
 
     /**
+     * @Route("/admin/gesdocs_supp/{id}", name="app_admin_gesdocs_supp", methods={"GET"})
+     */
+    public function suppdoc(Request $request,EntityManagerInterface $em,Docs $doc): Response
+    {               
+            $em->remove($doc);
+            $em->flush();
+            
+            return $this->redirectToRoute('app_admin_gesdocs');
+    }
+    
+    /**
      * @Route("/admin/gesdepots", name="app_admin_gesdepots")
      */
     public function gesdepots(): Response
     {
         return $this->render('admin/gesdepots_index.html.twig');
-    }
+    }          
+    
 }

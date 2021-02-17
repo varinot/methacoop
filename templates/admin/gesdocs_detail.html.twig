@@ -11,6 +11,9 @@
     <br>
        <p>{{ doc.docref }}</p> 
     </br>
+    <a href="{{ path('app_admin_gesdocs_supp', {id: doc.id})}}">  Suppression </a><br>
+    <br>
     <a href="{{ path('app_admin_gesdocs')}}">retour gestion liste des documentations</a><br>
+    <br>
     <a href="{{ path('app_admin')}}">retour espace administrateur</a>
 {% endblock %}

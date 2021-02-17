@@ -5,7 +5,7 @@ use Doctrine\ORM\Mapping as ORM;
 use App\Repository\DocsRepository;
 use Symfony\Component\HttpFoundation\File\File;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
-
+use App\Entity\Traits\Gestemps;
 /**
  * @ORM\Entity(repositoryClass=DocsRepository::class)
  * @Vich\Uploadable
@@ -13,6 +13,7 @@ use Vich\UploaderBundle\Mapping\Annotation as Vich;
  */
 class Docs
 {
+    use Gestemps;
     /**
      * @ORM\Id
      * @ORM\GeneratedValue

@@ -9,6 +9,8 @@ trait Gestemps
      */
     private $createdAt;
 
+     
+
     public function getCreatedAt(): ?\DateTimeInterface
     {
         return $this->createdAt;
@@ -20,7 +22,7 @@ trait Gestemps
 
         return $this;
     }
-
+   
      /**
      * @ORM\PrePersist
      * @ORM\PreUpdate
@@ -28,7 +30,9 @@ trait Gestemps
     
     public function Majtemps()
     {
+        if ($this->getCreatedAt() === null){
         $this->setCreatedAt(new \DateTimeImmutable());
+        }
     }
 
 }
