@@ -11,7 +11,7 @@
 <div class="example-wrapper">
     <h1>GESTION DES DOCUMENTATIONS</h1>
 
-    This friendly message is coming from:
+   
     {% for doc in docs %}
     <div>
         <h2><a href="{{ path('app_admin_gesdocs_detail', {id: doc.id}) }}">{{ doc.doctit }} </a></h2>

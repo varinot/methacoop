@@ -12,6 +12,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -102,7 +103,9 @@ class AdminController extends AbstractController
      */
     public function ajoututil(Request $request,EntityManagerInterface $em): Response
     {  
-        $form = $this->createFormBuilder(new User)
+        $user = new User;
+
+        $form = $this->createFormBuilder($user)
         ->add('nom', TextType::class)
         ->add('prenom', TextType::class)
         ->add('numvoie', TextType::class)
@@ -111,23 +114,54 @@ class AdminController extends AbstractController
         ->add('codpost', TextType::class)
         ->add('ville', TextType::class)
         ->add('nbdepot', IntegerType::class)
-        ->add('roles', ArrayType::class) 
+       // ->add('roles', ArrayType::class) 
         ->add('email', TextType::class)
         ->add('password', TextType::class)
         ->getForm();
+
         $form->handleRequest($request);
         
         if ($form->isSubmitted() && $form->isValid())
-        {
-            $donnees = $form->getData();
-            $em->persist($donnees);
+        {          
+             
+            $em->persist($user);
             $em->flush();
 
-            return $this->redirectToRoute('app_admin_gesuser');
+            return $this->redirectToRoute('app_admin_gesusers');
         }
             
         return $this->render('admin/gesusers_ajout.html.twig', ['utilform' => $form->createView()]);
     }
+
+    /**
+     * @Route("/admin/gesusers_maj/{id}", name="app_admin_gesusers_maj", methods={"GET", "POST"})
+     */
+    public function majutil(Request $request,EntityManagerInterface $em,User $util): Response
+    { 
+        $form = $this->createFormBuilder($util)
+        ->add('nom', TextType::class)
+        ->add('prenom', TextType::class)
+        ->add('numvoie', TextType::class)
+        ->add('typvoie', TextType::class)
+        ->add('voienom', TextType::class)
+        ->add('codpost', TextType::class)
+        ->add('ville', TextType::class)
+        ->add('nbdepot', IntegerType::class)
+       // ->add('roles', ArrayType::class) 
+        ->add('email', TextType::class)
+        ->add('password', TextType::class)
+        ->getForm();
+
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid())
+        {          
+            $em->flush();
+            return $this->redirectToRoute('app_admin_gesusers');
+        }
+        return $this->render('admin/gesusers_maj.html.twig', ['util' => $util, 'utilform' => $form->createView()]);
+       
+    } 
 
     /**
      * @Route("/admin/gesusers_detail/{id}", name="app_admin_gesusers_detail")
@@ -135,7 +169,7 @@ class AdminController extends AbstractController
     public function utildetail(User $util): Response
     {  
                    
-        return $this->render('admin/gesusers_detail.html.twig', compact('util'));
+        return $this->render('admin/gesusers_detail.html.twig',compact('util'));
     }
 
     /**

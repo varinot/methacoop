@@ -7,21 +7,23 @@
     .example-wrapper { margin: 1em auto; width: 95%; font: 18px/1.5 sans-serif; }
     .example-wrapper code { background: grey; padding: 2px 6px; }
     </style>
-    <h1>nom ou raison sociale {{ util.nom }}</h1>
+    <h1>nom ou raison sociale : {{ util.nom }}</h1>
     
     <br>
-        <p> privilège {{ util.roles}}</p>
-        <p>prénom ou numéro siret {{ util.prénom }}</p>
-        <p>numéro de voie adresse {{ util.numvoie }}</p>
-        <p>type de voie adresse {{ util.typvoie }}</p>
-        <p>nom de la voie adresse {{ util.voienom}}</p>
-        <p>code postal adresse  {{ util.codpost }}</p>
-        <p>ville adresse  {{ util.ville }}</p><br>
-        <p>nombre de dépôts {{ util.nbdepot}}</p><br>              
-        <p> adresse mail {{ util.email}}</p><br>
-        <p> date création compte {{ util.createdAt}}</p>
-        <p>Mot de Passe  {{ util.password }}</p> 
-    <br></br>
+        
+        <p>prénom ou numéro siret  : {{ util.prenom }}</p>
+        <p>numéro de voie adresse : {{ util.numvoie }}</p>
+        <p>type de voie adresse : {{ util.typvoie }}</p>
+        <p>nom de la voie adresse : {{ util.voienom}}</p>
+        <p>code postal adresse : {{ util.codpost }}</p>
+        <p>ville adresse  : {{ util.ville }}</p><br>
+        <p>nombre de dépôts : {{ util.nbdepot}}</p><br>              
+        <p> adresse mail : {{ util.email}}</p><br>
+       
+        <p>Mot de Passe  : {{ util.password }}</p> 
+    <br>
+    <a href="{{ path('app_admin_gesusers_maj', {id: util.id})}}">  mise à jour du membre</a>
+    </br>
     <a href="{{ path('app_admin_gesusers')}}">retour gestion liste des membres</a><br>
     <a href="{{ path('app_admin')}}">retour espace administrateur</a>
 {% endblock %}

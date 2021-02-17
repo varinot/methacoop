@@ -1,17 +1,17 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Ajout Membre {% endblock %}
+{% block title %} 'MISE A JOUR Membre #' ~ util.id {% endblock %}
 
 {% block body %}
     <style>
     .example-wrapper { margin: 1em auto; width: 95%; font: 18px/1.5 sans-serif; }
     .example-wrapper code { background: grey; padding: 2px 6px; }
     </style>
-    <h1>AJOUTER UN MEMBRE</h1>
+    <h1>MISE A JOUR DU MEMBRE #{{util.id}}</h1>
     <br>
        {{ form_start(utilform) }} 
         {{ form_widget(utilform) }}
-        <input type="submit" value="Validation de la Création"> 
+        <input type="submit" value="Validation de la Mise à jour"> 
        {{ form_end(utilform) }} 
     
     </br>
