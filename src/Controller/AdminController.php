@@ -197,13 +197,13 @@ class AdminController extends AbstractController
     }
 
     /**
-     * @Route("/admin/gesdocs_supp/{id}", name="app_admin_gesdocs_supp", methods={"GET"})
+     * @Route("/admin/gesdocs_supp/{id}", name="app_admin_gesdocs_supp", methods={"DELETE"})
      */
     public function suppdoc(Request $request,EntityManagerInterface $em,Docs $doc): Response
     {               
             $em->remove($doc);
             $em->flush();
-            
+
             return $this->redirectToRoute('app_admin_gesdocs');
     }
     

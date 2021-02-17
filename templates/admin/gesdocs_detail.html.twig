@@ -11,7 +11,10 @@
     <br>
        <p>{{ doc.docref }}</p> 
     </br>
-    <a href="{{ path('app_admin_gesdocs_supp', {id: doc.id})}}">  Suppression </a><br>
+    <form action="{{ path('app_admin_gesdocs_supp',{id: doc.id}) }}" method="post">
+        <input type="hidden" name="_method" value="DELETE">
+        <input type="submit" value="Suppression"> 
+    </form><br>
     <br>
     <a href="{{ path('app_admin_gesdocs')}}">retour gestion liste des documentations</a><br>
     <br>
