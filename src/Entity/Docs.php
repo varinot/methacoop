@@ -4,6 +4,7 @@ namespace App\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use App\Repository\DocsRepository;
 use Symfony\Component\HttpFoundation\File\File;
+use Symfony\Component\Validator\Constraints as Assert;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
 use App\Entity\Traits\Gestemps;
 /**
@@ -23,6 +24,8 @@ class Docs
 
     /**
      * @ORM\Column(type="string", length=110)
+     * @Assert\NotBlank(message="le titre doit avoir au moins 4 caractères")
+     * @Assert\Length(min=4)
      */
     private $doctit;
 
@@ -37,6 +40,8 @@ class Docs
 
     /**
      * @ORM\Column(type="string", length=40)
+     * @Assert\NotBlank(message="la référence doit avoir au moins 4 caractères")
+     * @Assert\Length(min=4)
      */
     private $docref;
 
