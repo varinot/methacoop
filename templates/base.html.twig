@@ -4,10 +4,32 @@
         <meta charset="UTF-8">
         <title>{% block title %}Welcome!{% endblock %}</title>
         {% block stylesheets %}{% endblock %}
-
+        <style>
+            .alert {
+                padding: 20px;
+                color: white;
+                text-align: center;
+            }
+            .alert-success {
+                background-color: blue;
+            }
+             .alert-info {
+                background-color: grey;
+            }
+            .alert-error {
+                background-color: red;
+            }
+        </style>
         {% block javascripts %}{% endblock %}
     </head>
     <body>
+        {{ include('partials/_flash_messages.html.twig') }}
+        <nav>
+            <ul>
+                <li><a href="{{ path('accueil') }}">ACCUEIL</a></li>
+                <li><a href="{{ path('propos') }}">A PROPOS DU SITE</a></li>
+            </ul>    
+        
         {% block body %}{% endblock %}
     </body>
 </html>

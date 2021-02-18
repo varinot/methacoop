@@ -12,6 +12,11 @@
        <p>{{ new.newscont }}</p> 
        <p>créé le {{ new.createdAt|date }} </p> 
     </br>
+     <form action="{{ path('app_admin_gesactus_supp',{id: new.id}) }}" method="post">
+        <input type="hidden" name="_method" value="DELETE">
+        <input type="submit" value="Suppression de cette Actualité"> 
+    </form><br>
+    <br>
     <a href="{{ path('app_admin_gesactus')}}">retour gestion liste des actualités</a><br>
     <a href="{{ path('app_admin')}}">retour espace administrateur</a>
 {% endblock %}

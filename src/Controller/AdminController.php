@@ -60,6 +60,8 @@ class AdminController extends AbstractController
             $em->persist($new);
             $em->flush();
 
+            $this->addFlash('success', 'Actualité créée');
+
             return $this->redirectToRoute('app_admin_gesactus');
         }
 
@@ -99,7 +101,9 @@ class AdminController extends AbstractController
             $em->persist($doc);
             
             $em->flush();
-            
+
+            $this->addFlash('success', 'Documentation créée');
+
             return $this->redirectToRoute('app_admin_gesdocs');
         }
         return $this->render('admin/gesdocs_ajout.html.twig', ['docuform' => $form->createView()]);
@@ -151,6 +155,8 @@ class AdminController extends AbstractController
             $em->persist($user);
             $em->flush();
 
+            $this->addFlash('success', 'Membre ajouté');
+
             return $this->redirectToRoute('app_admin_gesusers');
         }
             
@@ -181,6 +187,9 @@ class AdminController extends AbstractController
         if ($form->isSubmitted() && $form->isValid())
         {          
             $em->flush();
+
+            $this->addFlash('success', 'Membre mis à jour');
+
             return $this->redirectToRoute('app_admin_gesusers');
         }
         return $this->render('admin/gesusers_maj.html.twig', ['util' => $util, 'utilform' => $form->createView()]);
@@ -204,6 +213,8 @@ class AdminController extends AbstractController
             $em->remove($util);
             $em->flush();
 
+            $this->addFlash('info', 'Membre supprimé');
+
             return $this->redirectToRoute('app_admin_gesusers');
     }
     
@@ -215,6 +226,8 @@ class AdminController extends AbstractController
     {               
             $em->remove($doc);
             $em->flush();
+
+            $this->addFlash('info', 'Documentation Supprimée');
 
             return $this->redirectToRoute('app_admin_gesdocs');
     }
@@ -242,10 +255,26 @@ class AdminController extends AbstractController
             $em->persist($doc);
             
             $em->flush();
+
+            $this->addFlash('success', 'Documentation mise à jour');
             
             return $this->redirectToRoute('app_admin_gesdocs');
         }
         return $this->render('admin/gesdocs_maj.html.twig', ['docuform' => $form->createView()]);
    
     }
+
+    /**
+     * @Route("/admin/gesactus_supp/{id}", name="app_admin_gesactus_supp", methods={"DELETE"})
+     */
+    public function suppactu(Request $request,EntityManagerInterface $em,News $new): Response
+    {               
+            $em->remove($new);
+            $em->flush();
+
+            $this->addFlash('info', 'Actualité supprimée');
+
+            return $this->redirectToRoute('app_admin_gesactus');
+    }
+    
 }
