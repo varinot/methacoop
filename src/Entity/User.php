@@ -202,7 +202,7 @@ class User implements UserInterface
         return $this->numvoie;
     }
 
-    public function setNumvoie(string $numvoie): self
+    public function setNumvoie(?string $numvoie): self
     {
         $this->numvoie = $numvoie;
 

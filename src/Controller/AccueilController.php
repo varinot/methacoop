@@ -15,6 +15,15 @@ class AccueilController extends AbstractController
     {
         return $this->render('accueil/index.html.twig');
     }
+    
+     /**
+     * @Route("/", name="propos")
+     */
+    public function apropoindex(): Response
+    {
+        return $this->render('propos/index.html.twig');
+    }
+    
     /**
      * @Route("/register", name="app_register")
      */

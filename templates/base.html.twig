@@ -3,8 +3,9 @@
     <head>
         <meta charset="UTF-8">
         <title>{% block title %}Welcome!{% endblock %}</title>
-        {% block stylesheets %}{% endblock %}
-        <style>
+        {% block stylesheets %}
+            <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
+            <style>
             .alert {
                 padding: 20px;
                 color: white;
@@ -19,17 +20,19 @@
             .alert-error {
                 background-color: red;
             }
-        </style>
-        {% block javascripts %}{% endblock %}
+            </style>
+        {% endblock %}
+        
+        {% block javascripts %}
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js" integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0" crossorigin="anonymous"></script>
+        {% endblock %}
     </head>
     <body>
         {{ include('partials/_flash_messages.html.twig') }}
-        <nav>
-            <ul>
-                <li><a href="{{ path('accueil') }}">ACCUEIL</a></li>
-                <li><a href="{{ path('propos') }}">A PROPOS DU SITE</a></li>
-            </ul>    
-        
+          
+        {{ include('partials/_nav.html.twig') }} 
         {% block body %}{% endblock %}
+    
+        {{ include('partials/_footer.html.twig') }}
     </body>
 </html>
