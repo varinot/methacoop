@@ -7,19 +7,18 @@
     .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
     .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
 </style>
-
 <div class="example-wrapper">
     <h1>GESTION DES MEMBRES UTILISATEURS</h1>
+    <br>
     {% for util in utils %}
     <div>
         <h2><a href="{{ path('app_admin_gesusers_detail', {id: util.id}) }}">{{ util.nom }} </a></h2>
-        <p>créé le {{ util.createdAt|date }} </p>
+        <p>compte créé le {{ util.createdAt|date }} </p>
     </div>
-    
     {% endfor %}
+    
     <div>
         <h2><a href="{{ path('app_admin_gesusers_ajout') }}">AJOUT D'UN MEMBRE </a></h2>
-        {#<p> </p>#}
         <b>
         <a href="{{ path('app_admin')}}">retour espace administrateur</a>
         </b>

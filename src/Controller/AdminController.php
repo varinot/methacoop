@@ -227,4 +227,25 @@ class AdminController extends AbstractController
         return $this->render('admin/gesdepots_index.html.twig');
     }          
     
+
+    /**
+     * @Route("/admin/gesdocs_maj/({id}", name="app_admin_gesdocs_maj", methods={"GET", "POST"})
+     */
+    public function documaj(Request $request, EntityManagerInterface $em, Docs $doc): Response 
+    { 
+        $form = $this->createForm(DocuType::class, $doc);
+         
+        $form->handleRequest($request);
+        
+        if ($form->isSubmitted() && $form->isValid())
+        {
+            $em->persist($doc);
+            
+            $em->flush();
+            
+            return $this->redirectToRoute('app_admin_gesdocs');
+        }
+        return $this->render('admin/gesdocs_maj.html.twig', ['docuform' => $form->createView()]);
+   
+    }
 }

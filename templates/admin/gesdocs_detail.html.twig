@@ -10,12 +10,16 @@
     <h1>{{ doc.doctit }}</h1>
     <br>
        <p>{{ doc.docref }}</p> 
-       <p>créé le {{ doc.createdAt|date }} </p> 
-    </br>
+       <p>créée le {{ doc.createdAt|date }} </p> 
+       <br>
+       <a href="{{ path('app_admin_gesdocs_maj', {id: doc.id})}}">  mise à jour de la documentation</a>
+       </br>
+    <p>
     <form action="{{ path('app_admin_gesdocs_supp',{id: doc.id}) }}" method="post">
         <input type="hidden" name="_method" value="DELETE">
         <input type="submit" value="Suppression"> 
-    </form><br>
+    </form>
+    </p>
     <br>
     <a href="{{ path('app_admin_gesdocs')}}">retour gestion liste des documentations</a><br>
     <br>
