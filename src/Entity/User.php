@@ -6,7 +6,7 @@ use App\Repository\UserRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\UserInterface;
-use App\Entity\Traits\Gestemps;
+use App\Entity\Traits\Gescredat;
 use Symfony\Component\Validator\Constraints as Assert;
 /**
  * @ORM\Entity(repositoryClass=UserRepository::class)
@@ -15,7 +15,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  */
 class User implements UserInterface
 {
-    use Gestemps;
+    use Gescredat;
     /**
      * @ORM\Id
      * @ORM\GeneratedValue

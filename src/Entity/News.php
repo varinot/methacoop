@@ -2,7 +2,7 @@
 
 namespace App\Entity;
 
-use App\Entity\Traits\Gestemps;
+use App\Entity\Traits\Gescredat;
 use App\Repository\NewsRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -12,7 +12,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  */
 class News
 {
-    use Gestemps;
+    use Gescredat;
     /**
      * @ORM\Id
      * @ORM\GeneratedValue
