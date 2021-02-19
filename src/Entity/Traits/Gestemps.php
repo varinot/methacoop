@@ -9,7 +9,10 @@ trait Gestemps
      */
     private $createdAt;
 
-     
+          /**
+     * @ORM\Column(type="datetime", options={"default": "CURRENT_TIMESTAMP"})
+     */
+    private $updatedAt;
 
     public function getCreatedAt(): ?\DateTimeInterface
     {
@@ -19,6 +22,18 @@ trait Gestemps
     public function setCreatedAt(\DateTimeInterface $createdAt): self
     {
         $this->createdAt = $createdAt;
+
+        return $this;
+    }
+   
+    public function getUpdatedAt(): ?\DateTimeInterface
+    {
+        return $this->updatedAt;
+    }
+
+    public function setUpdatedAt(\DateTimeInterface $updatedAt): self
+    {
+        $this->updtedAt = $updatedAt;
 
         return $this;
     }
@@ -33,6 +48,7 @@ trait Gestemps
         if ($this->getCreatedAt() === null){
         $this->setCreatedAt(new \DateTimeImmutable());
         }
+        $this->setUpdatedAt(new \DateTimeImmutable());
     }
 
 }
