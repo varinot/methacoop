@@ -4,16 +4,24 @@
 
 {% block body %}
     <style>
-    .example-wrapper { margin: 1em auto; width: 95%; font: 18px/1.5 sans-serif; }
+    .example-wrapper { margin: 5em auto; width: 95%; font: 18px/1.5 sans-serif; }
     .example-wrapper code { background: grey; padding: 2px 6px; }
     </style>
     <h1>AJOUTER UNE ACTUALITÉ</h1>
     <br>
+    <div class="row">
+        <div class="col-md-10 mx-auto">
        {{ form_start(actuform) }} 
         {{ form_widget(actuform) }}
+        <br></br> 
         <input type="submit" value="Validation de la Création" class="btn btn-primary btn-block"> 
-       {{ form_end(actuform) }} 
-    </br>
-    <a href="{{ path('app_admin')}}">retour espace administrateur</a>
-    <a href="{{ path('accueil')}}">retour accueil</a>
+       {{ form_end(actuform) }}
+       <br></br> 
+       </div>
+        <div class="col-md-10 mx-auto">
+           <a href="{{ path('app_admin')}}">retour espace administrateur</a>
+            <a href="{{ path('accueil')}}">retour accueil</a>
+        </div>
+    </div>
+
 {% endblock %}

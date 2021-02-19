@@ -5,7 +5,7 @@ namespace App\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-
+use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 class AccueilController extends AbstractController
 {
     /**
@@ -23,7 +23,16 @@ class AccueilController extends AbstractController
     {
         return $this->render('propos/index.html.twig');
     }
-    
+     /**
+     * @Route("/security/login", name="app_login")
+     */
+    public function login(AuthenticationUtils $authenticationUtils): Response
+    {
+         if ($this->getUser()) {
+           return $this->redirectToRoute('actus');
+         }
+         return $this->render('security/login.html.twig');
+        }
     /**
      * @Route("/register", name="app_register")
      */

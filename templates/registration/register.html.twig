@@ -3,21 +3,10 @@
 {% block title %}METHACOOP Inscription{% endblock %}
 
 {% block body %}
+<h1>CREATION  DE COMPTE MEMBRE</h1>
     <div class="row">
-        <div class="col-md-2">
-        </div>
-    </div>    
-    {% for flashError in app.flashes('verify_email_error') %}
-        <div class="alert alert-error" role="alert">{{ flashError }}</div>
-    {% endfor %}
-
-    <h1>CREATION  DE COMPTE MEMBRE</h1>
-    {# ajout des champs des propriétés utilisateurs 
-       les form_row comprennent le texte du champs label 
-       et affichage d'erreurs et champs de saisie widgets
-       et affichage des aides help #}
- 
-    {{ form_start(registrationForm) }}
+        <div class="col-md-10 mx-auto">
+            {{ form_start(registrationForm) }}
         {{ form_row(registrationForm.nom, {label: 'entrez votre nom ou raison sociale  '}) }}
         {{ form_row(registrationForm.prenom, {label: 'entrez votre prénom ou numéro siret  '}) }}
         {{ form_row(registrationForm.numvoie, {label: 'entrez le numéro de voie de votre adresse  '}) }}
@@ -30,7 +19,20 @@
         {{ form_row(registrationForm.plainPassword, {
             label: 'saisissez un Mot de Passe  '}) }}
         {{ form_row(registrationForm.agreeTerms, {label: 'vous acceptez les C.G.U. du site '}) }}
+        <br></br> 
+        <button type="submit" class="btn btn-primary btn-block">Enregistrer</button>
+             {{ form_end(registrationForm) }}
+        </div>
+    </div>    
+    {% for flashError in app.flashes('verify_email_error') %}
+        <div class="alert alert-error" role="alert">{{ flashError }}</div>
+    {% endfor %}
 
-        <button type="submit" class="btn">Enregistrer</button>
-    {{ form_end(registrationForm) }}
+    
+    {# ajout des champs des propriétés utilisateurs 
+       les form_row comprennent le texte du champs label 
+       et affichage d'erreurs et champs de saisie widgets
+       et affichage des aides help #}
+ 
+
 {% endblock %}
