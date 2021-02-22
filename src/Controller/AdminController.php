@@ -89,10 +89,8 @@ class AdminController extends AbstractController
     /**
      * @Route("/admin/gesdocs_ajout", name="app_admin_gesdocs_ajout", methods={"GET", "POST"})
      */
-    public function docusajout(Request $request, EntityManagerInterface $em): Response 
+    public function docusajout(Request $request, EntityManagerInterface $em, Docs $doc): Response 
     { 
-        $doc = new Docs;
-
         $form = $this->createForm(DocuType::class, $doc);
          
         $form->handleRequest($request);

@@ -15,23 +15,23 @@ class DocuType extends AbstractType
     {
         $builder
             ->add('imageFile', VichImageType::class, [
+            'label'=> 'Image à ajouter',
             'required' => false,
             'allow_delete' => true,
-            'delete_label' => '...',
-            'download_label' => '...',
+            'delete_label' => 'Suppression',
+            'download_label' => 'Téléchargement',
             'download_uri' => true,
             'image_uri' => true,
-            
             'asset_helper' => true,
             ])
-            ->add('genericFile', VichFileType::class, [
-                'required' => false,
-                'allow_delete' => true,
-                'delete_label' => '...',
-                'download_uri' => '...',
-                'download_label' => '...',
-                'asset_helper' => true,
-            ])
+           // ->add('genericFile', VichFileType::class, [
+           //     'required' => false,
+           //     'allow_delete' => true,
+           //     'delete_label' => '...',
+           //     'download_uri' => '...',
+           //     'download_label' => '...',
+           //     'asset_helper' => true,
+            //])
             ->add('doctit')
             ->add('docref');
     }
