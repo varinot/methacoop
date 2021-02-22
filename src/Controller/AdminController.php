@@ -145,7 +145,7 @@ class AdminController extends AbstractController
         ->add('codpost', TextType::class)
         ->add('ville', TextType::class)
         ->add('nbdepot', IntegerType::class)
-       // ->add('roles', ArrayType::class) 
+        
         ->add('email', TextType::class)
         ->add('password', TextType::class)
         ->getForm();
@@ -167,11 +167,20 @@ class AdminController extends AbstractController
     }
 
     /**
-     * @Route("/admin/gesusers_maj/{id}", name="app_admin_gesusers_maj", methods={"GET", "POST"})
+     * @Route("/admin/gesusers_detail/{id}", name="app_admin_gesusers_detail")
      */
-    public function majutil(Request $request,EntityManagerInterface $em,User $util): Response
+    public function utildetail(User $util): Response
+    {  
+                   
+        return $this->render('admin/gesusers_detail.html.twig',compact('util'));
+    }
+
+    /**
+     * @Route("/admin/gesusers_maj/{id}", name="app_admin_gesusers_maj", methods={"GET", "PUT"})
+     */
+    public function majutil(Request $request, EntityManagerInterface $em, User $util): Response
     { 
-        $form = $this->createFormBuilder($util)
+        $form = $this->createFormBuilder($util, ['method' => 'PUT'])
         ->add('nom', TextType::class)
         ->add('prenom', TextType::class)
         ->add('numvoie', TextType::class)
@@ -180,7 +189,7 @@ class AdminController extends AbstractController
         ->add('codpost', TextType::class)
         ->add('ville', TextType::class)
         ->add('nbdepot', IntegerType::class)
-       // ->add('roles', ArrayType::class) 
+        
         ->add('email', TextType::class)
         ->add('password', TextType::class)
         ->getForm();
@@ -198,15 +207,7 @@ class AdminController extends AbstractController
         return $this->render('admin/gesusers_maj.html.twig', ['util' => $util, 'utilform' => $form->createView()]);
        
     } 
-
-    /**
-     * @Route("/admin/gesusers_detail/{id}", name="app_admin_gesusers_detail")
-     */
-    public function utildetail(User $util): Response
-    {  
-                   
-        return $this->render('admin/gesusers_detail.html.twig',compact('util'));
-    }
+ 
 
     /**
      * @Route("/admin/gesusers_supp/{id}", name="app_admin_gesusers_supp", methods={"DELETE"})

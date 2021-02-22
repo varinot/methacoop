@@ -19,7 +19,7 @@ class DocuType extends AbstractType
             ->add('imageFile', VichImageType::class, [
             'label'=> 'Image à ajouter',
             'required' => false,
-            'allow_delete' => true,
+            'allow_delete' => false,
             'delete_label' => 'Suppression',
             'download_label' => 'Téléchargement',
             'download_uri' => true,
