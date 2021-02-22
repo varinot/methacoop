@@ -14,6 +14,8 @@ class DocuType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
+            ->add('doctit')
+            ->add('docref')
             ->add('imageFile', VichImageType::class, [
             'label'=> 'Image à ajouter',
             'required' => false,
@@ -32,8 +34,9 @@ class DocuType extends AbstractType
            //     'download_label' => '...',
            //     'asset_helper' => true,
             //])
-            ->add('doctit')
-            ->add('docref');
+               
+            ;
+
     }
 
     public function configureOptions(OptionsResolver $resolver)

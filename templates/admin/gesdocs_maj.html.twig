@@ -10,15 +10,16 @@
 
 <div class="example-wrapper">
     <h1>METTRE À JOUR UNE DOCUMENTATION</h1>
-    <div>
-    <br>
+    <div class="row">
+        <div class="col-md-10 mx-auto">
+        <br>
         {{ form_start(docuform) }} 
         {{ form_widget(docuform) }}
         <input type="submit" value="Validation de la Mise à jour"> 
        {{ form_end(docuform) }} 
-    <br>
+        <br>
+        </div>
     </div>
-  
     <div>
         <h2><a href="{{ path('app_admin_gesdocs') }}">retour liste documentations </a></h2>
         <b>

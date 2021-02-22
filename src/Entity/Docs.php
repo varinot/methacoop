@@ -56,7 +56,7 @@ class Docs
     private $imageName;
 
     /**
-     * @ORM\Column(type="datetime", nullable=true)
+     * @ORM\Column(type="datetime", options={"default": "CURRENT_TIMESTAMP"})
      */
     private $updatedAt;
 
@@ -119,17 +119,7 @@ class Docs
 
         return $this;
     }
-
-    /**
-     * @ORM\PrePersist
-     * @ORM\PreUpdate
-     */ 
-    
-    public function Majtemps()
-    {
-        $this->setCreatedAt(new \DateTimeImmutable());
-    }
-
+   
     public function getImageName(): ?string
     {
         return $this->imageName;
@@ -153,5 +143,17 @@ class Docs
 
         return $this;
     }
-
+    /**
+     * @ORM\PrePersist
+     * @ORM\PreUpdate
+     */ 
+    
+    public function updateTimestamp()
+    {
+       if($this->getCreatedAt()=== null)
+       {
+          $this->setCreatedAt(new \DateTimeImmutable());
+       }
+       $this->setUpdatedAt(new \DateTimeImmutable());
+    }
 }

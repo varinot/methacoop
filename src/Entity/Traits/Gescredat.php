@@ -24,7 +24,7 @@ trait Gescredat
      * @ORM\PreUpdate
      */ 
     
-    public function Majtemps()
+    public function Majcre()
     {
         if ($this->getCreatedAt() === null){
         $this->setCreatedAt(new \DateTimeImmutable());

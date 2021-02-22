@@ -78,7 +78,7 @@ class AdminController extends AbstractController
     }
 
     /**
-     * @Route("/admin/gesdocs", name="app_admin_gesdocs")
+     * @Route("/admin/gesdocs", name="app_admin_gesdocs",methods="GET")
      */
     public function gesdocs(DocsRepository $docsRepository): Response
     { 
@@ -89,14 +89,18 @@ class AdminController extends AbstractController
     /**
      * @Route("/admin/gesdocs_ajout", name="app_admin_gesdocs_ajout", methods={"GET", "POST"})
      */
-    public function docusajout(Request $request, EntityManagerInterface $em, Docs $doc): Response 
+    public function docusajout(Request $request, EntityManagerInterface $em): Response 
     { 
+        $doc = new Docs;
+        
         $form = $this->createForm(DocuType::class, $doc);
-         
+            
         $form->handleRequest($request);
         
         if ($form->isSubmitted() && $form->isValid())
         {
+            
+           
             $em->persist($doc);
             
             $em->flush();
@@ -241,11 +245,11 @@ class AdminController extends AbstractController
     
 
     /**
-     * @Route("/admin/gesdocs_maj/({id}", name="app_admin_gesdocs_maj", methods={"GET", "POST"})
+     * @Route("/admin/gesdocs_maj/({id}", name="app_admin_gesdocs_maj", methods={"GET", "PUT"})
      */
     public function documaj(Request $request, EntityManagerInterface $em, Docs $doc): Response 
     { 
-        $form = $this->createForm(DocuType::class, $doc);
+        $form = $this->createForm(DocuType::class, $doc, ['method' => 'PUT']);
          
         $form->handleRequest($request);
         
