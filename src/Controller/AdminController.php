@@ -5,6 +5,7 @@ use App\Entity\News;
 use App\Entity\Docs;
 use App\Entity\User;
 use App\Entity\Depots;
+use App\Form\DepoType;
 use App\Form\DocuType;
 use App\Repository\DocsRepository;
 use App\Repository\NewsRepository;
@@ -101,8 +102,6 @@ class AdminController extends AbstractController
         
         if ($form->isSubmitted() && $form->isValid())
         {
-            
-           
             $em->persist($doc);
             
             $em->flush();
@@ -239,7 +238,7 @@ class AdminController extends AbstractController
     /**
      * @Route("/admin/gesdepots_ajout", name="app_admin_gesdepots_ajout", methods={"GET", "POST"})
      */
-    public function depotsajout(Request $request, EntityManagerInterface $em): Response 
+    public function depotsajout(Request $request, EntityManagerInterface $em, UserRepository $userRepository): Response 
     { 
         $depot = new Depots;
         
@@ -249,13 +248,12 @@ class AdminController extends AbstractController
         
         if ($form->isSubmitted() && $form->isValid())
         {
-            
-           
+                       
             $em->persist($depot);
             
             $em->flush();
 
-            $this->addFlash('success', 'Dépôt créé avec succès');
+            $this->addFlash('success', 'Dépôt créé avec succès par {{depot.user.nom }}' );
 
             return $this->redirectToRoute('app_admin_gesdepots');
         }
@@ -267,9 +265,10 @@ class AdminController extends AbstractController
     /**
      * @Route("/admin/gesdepots", name="app_admin_gesdepots")
      */
-    public function gesdepots(): Response
+    public function gesdepots(DepotsRepository $depotsRepository): Response
     {
-        return $this->render('admin/gesdepots_index.html.twig');
+        $depots = $depotsRepository->findBy([], ['updatedAt' => 'DESC']);
+        return $this->render('admin/gesdepots_index.html.twig', compact('depots'));
     }          
     
     /**

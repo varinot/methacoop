@@ -2,6 +2,7 @@
 
 namespace App\Form;
 
+use App\Entity\User;
 use App\Entity\Depots;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -28,6 +29,7 @@ class DepoType extends AbstractType
             'image_uri' => true,
             'asset_helper' => true,
             ])
+ //->add('user')     
            // ->add('genericFile', VichFileType::class, [
            //     'required' => false,
            //     'allow_delete' => true,
@@ -44,7 +46,7 @@ class DepoType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
-            'data_class' => Docs::class,
+            'data_class' => Depots::class,
         ]);
     }
 }

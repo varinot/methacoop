@@ -10,11 +10,21 @@
 
 <div class="example-wrapper">
     <h1>GESTION DES DÉPÔTS MEMBRES</h1>
-    
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at </li>
-        <li>Your template at </li>
-    </ul>
+    <br>
+    </br>
+    {% for depot in depots %}
+    <div>
+    <h2>{{ depot.depotit }}</h2>
+{#<h2><a href="{{ path('app_admin_gesdepots_detail', {id: depot.id}) }}">{{ depot.depotit }} </a></h2>#}
+        <p>créé le {{ depot.createdAt|date }} </p>
+        <p>mis à jour le {{ depot.updatedAt|date }} </p> 
+        <p> par {{ depot.user.nom }} </p>
+    </div>
+    {% endfor %}
+    <div>
+        <h2><a href="{{ path('app_admin_gesdepots_ajout') }}"> Création d'un Dépôt</a></h2>
+        <p>  --------------        </p>
+        <h2><a href="{{ path('app_admin')}}">retour espace administrateur</a></h2>
+    </div>  
 </div>
 {% endblock %}

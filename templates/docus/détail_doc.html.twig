@@ -12,7 +12,8 @@
        <h2>{{ doc.docref }}</h2> 
     </br>
     <br>
-    {{ doc.imagename}}
+        <img src="{{ (doc.imageName ? vich_uploader_asset(doc) : asset('build/
+        images/placeholder.jpg')) }} ">
     <br></br>
     <a href="{{ path('docus')}}">retour liste des documentations</a>
     <a href="{{ path('accueil')}}">retour accueil</a>

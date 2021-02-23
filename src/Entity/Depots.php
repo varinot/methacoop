@@ -45,7 +45,7 @@ class Depots
     private $depoavis;
 
     /**
-     * @ORM\Column(type="string", length=50, nullable=true)
+     * @ORM\Column(type="string", length=80, nullable=true)
      */
     private $deporef;
 
@@ -60,7 +60,7 @@ class Depots
     private $updatedAt;
 
     /**
-     * @ORM\Column(type="string", length=50, nullable=true)
+     * @ORM\Column(type="string", length=100, nullable=true)
      */
     private $imageName;
 
