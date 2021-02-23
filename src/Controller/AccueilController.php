@@ -23,13 +23,31 @@ class AccueilController extends AbstractController
     {
         return $this->render('propos/index.html.twig');
     }
-     /**
+     
+    /**
+     * @Route("/", name="actus")
+     */
+    public function actusindex(): Response
+    {
+        return $this->render('actus/index.html.twig');
+    }
+ 
+    /**
+     * @Route("/", name="docus")
+     */
+    public function docusindex(): Response
+    {
+        return $this->render('docus/index.html.twig');
+    }
+    
+    /**
      * @Route("/security/login", name="app_login")
      */
     public function login(AuthenticationUtils $authenticationUtils): Response
     {
-         if ($this->getUser()) {
-           return $this->redirectToRoute('actus');
+         if ($this->getUser($authenticationUtils)) 
+         {
+           return $this->redirectToRoute('app_register');
          }
          return $this->render('security/login.html.twig');
         }
