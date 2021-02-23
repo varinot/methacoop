@@ -1,23 +1,22 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Ajout Actualité {% endblock %}
+{% block title %}Ajout DOCUMENTATION {% endblock %}
 
 {% block body %}
     <style>
-    .example-wrapper { margin: 5em auto; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: grey; padding: 2px 6px; }
+    
     </style>
-    <h1>AJOUTER UNE ACTUALITÉ</h1>
+    <h1>AJOUTER UNE DOCUMENTATION</h1>
     <br>
     <div class="row">
         <div class="col-md-10 mx-auto">
-       {{ form_start(actuform) }} 
-        {{ form_widget(actuform) }}
+       {{ form_start(docuform) }} 
+        {{ form_widget(docuform) }}
         <br></br> 
         <input type="submit" value="Validation de la Création" class="btn btn-primary btn-block"> 
-       {{ form_end(actuform) }}
-       <br></br> 
-       </div>
+       {{ form_end(docuform) }} 
+    <br></br>
+        </div>
         <div class="col-md-10 mx-auto">
            <a href="{{ path('app_admin')}}">retour espace administrateur</a>
             <a href="{{ path('accueil')}}">retour accueil</a>

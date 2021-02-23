@@ -4,6 +4,7 @@ namespace App\Controller;
 use App\Entity\News;
 use App\Entity\Docs;
 use App\Entity\User;
+use App\Form\DocuType;
 use App\Repository\DocsRepository;
 use App\Repository\NewsRepository;
 use App\Repository\UserRepository;
@@ -12,16 +13,19 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
-
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 /**
  * @[IsGranted("ROLE_ADMIN")]
  */
 
 class AdminController extends AbstractController
 {
+   
     /**
      * @Route("/admin", name="app_admin")
      */
@@ -57,6 +61,8 @@ class AdminController extends AbstractController
             $em->persist($new);
             $em->flush();
 
+            $this->addFlash('success', 'Actualité créée');
+
             return $this->redirectToRoute('app_admin_gesactus');
         }
 
@@ -72,12 +78,38 @@ class AdminController extends AbstractController
     }
 
     /**
-     * @Route("/admin/gesdocs", name="app_admin_gesdocs")
+     * @Route("/admin/gesdocs", name="app_admin_gesdocs",methods="GET")
      */
     public function gesdocs(DocsRepository $docsRepository): Response
     { 
         $docs = $docsRepository->findBy([], ['createdAt' => 'DESC']);
         return $this->render('admin/gesdocs_index.html.twig', compact('docs'));
+    }
+
+    /**
+     * @Route("/admin/gesdocs_ajout", name="app_admin_gesdocs_ajout", methods={"GET", "POST"})
+     */
+    public function docusajout(Request $request, EntityManagerInterface $em): Response 
+    { 
+        $doc = new Docs;
+        
+        $form = $this->createForm(DocuType::class, $doc);
+            
+        $form->handleRequest($request);
+        
+        if ($form->isSubmitted() && $form->isValid())
+        {
+            
+           
+            $em->persist($doc);
+            
+            $em->flush();
+
+            $this->addFlash('success', 'Documentation créée');
+
+            return $this->redirectToRoute('app_admin_gesdocs');
+        }
+        return $this->render('admin/gesdocs_ajout.html.twig', ['docuform' => $form->createView()]);
     }
     /**
      * @Route("/admin/gesdocs_detail/{id}", name="app_admin_gesdocs_detail")
@@ -96,20 +128,158 @@ class AdminController extends AbstractController
         $utils = $userRepository->findBy([], ['createdAt' => 'DESC']);
         return $this->render('admin/gesusers_index.html.twig', compact('utils'));
     }
-/**
+
+    /**
+     * @Route("/admin/gesusers_ajout", name="app_admin_gesusers_ajout", methods={"GET", "POST"})
+     */
+    public function ajoututil(Request $request,EntityManagerInterface $em): Response
+    {  
+        $user = new User;
+
+        $form = $this->createFormBuilder($user)
+        ->add('nom', TextType::class)
+        ->add('prenom', TextType::class)
+        ->add('numvoie', TextType::class)
+        ->add('typvoie', TextType::class)
+        ->add('voienom', TextType::class)
+        ->add('codpost', TextType::class)
+        ->add('ville', TextType::class)
+        ->add('nbdepot', IntegerType::class)
+        
+        ->add('email', TextType::class)
+        ->add('password', TextType::class)
+        ->getForm();
+
+        $form->handleRequest($request);
+        
+        if ($form->isSubmitted() && $form->isValid())
+        {          
+             
+            $em->persist($user);
+            $em->flush();
+
+            $this->addFlash('success', 'Membre ajouté');
+
+            return $this->redirectToRoute('app_admin_gesusers');
+        }
+            
+        return $this->render('admin/gesusers_ajout.html.twig', ['utilform' => $form->createView()]);
+    }
+
+    /**
      * @Route("/admin/gesusers_detail/{id}", name="app_admin_gesusers_detail")
      */
     public function utildetail(User $util): Response
     {  
-         dd($util);          
-        return $this->render('admin/gesusers_detail.html.twig', compact('util'));
+                   
+        return $this->render('admin/gesusers_detail.html.twig',compact('util'));
     }
 
+    /**
+     * @Route("/admin/gesusers_maj/{id}", name="app_admin_gesusers_maj", methods={"GET", "PUT"})
+     */
+    public function majutil(Request $request, EntityManagerInterface $em, User $util): Response
+    { 
+        $form = $this->createFormBuilder($util, ['method' => 'PUT'])
+        ->add('nom', TextType::class)
+        ->add('prenom', TextType::class)
+        ->add('numvoie', TextType::class)
+        ->add('typvoie', TextType::class)
+        ->add('voienom', TextType::class)
+        ->add('codpost', TextType::class)
+        ->add('ville', TextType::class)
+        ->add('nbdepot', IntegerType::class)
+        
+        ->add('email', TextType::class)
+        ->add('password', TextType::class)
+        ->getForm();
+
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid())
+        {   
+            $em->persist($util);       
+            $em->flush();
+
+            $this->addFlash('success', 'Membre mis à jour');
+
+            return $this->redirectToRoute('app_admin_gesusers');
+        }
+        return $this->render('admin/gesusers_maj.html.twig', ['util' => $util, 'utilform' => $form->createView()]);
+       
+    } 
+ 
+
+    /**
+     * @Route("/admin/gesusers_supp/{id}", name="app_admin_gesusers_supp", methods={"DELETE"})
+     */
+    public function supputil(Request $request,EntityManagerInterface $em,User $util): Response
+    {               
+            $em->remove($util);
+            $em->flush();
+
+            $this->addFlash('info', 'Membre supprimé');
+
+            return $this->redirectToRoute('app_admin_gesusers');
+    }
+    
+
+    /**
+     * @Route("/admin/gesdocs_supp/{id}", name="app_admin_gesdocs_supp", methods={"DELETE"})
+     */
+    public function suppdoc(Request $request,EntityManagerInterface $em,Docs $doc): Response
+    {               
+            $em->remove($doc);
+            $em->flush();
+
+            $this->addFlash('info', 'Documentation Supprimée');
+
+            return $this->redirectToRoute('app_admin_gesdocs');
+    }
+    
     /**
      * @Route("/admin/gesdepots", name="app_admin_gesdepots")
      */
     public function gesdepots(): Response
     {
         return $this->render('admin/gesdepots_index.html.twig');
+    }          
+    
+
+    /**
+     * @Route("/admin/gesdocs_maj/({id}", name="app_admin_gesdocs_maj", methods={"GET", "PUT"})
+     */
+    public function documaj(Request $request, EntityManagerInterface $em, Docs $doc): Response 
+    { 
+        $form = $this->createForm(DocuType::class, $doc, ['method' => 'PUT']);
+         
+        $form->handleRequest($request);
+        
+        if ($form->isSubmitted() && $form->isValid())
+        {
+            $em->persist($doc);
+            
+            $em->flush();
+
+            $this->addFlash('success', 'Documentation mise à jour');
+            
+            return $this->redirectToRoute('app_admin_gesdocs');
+        }
+        return $this->render('admin/gesdocs_maj.html.twig', ['docuform' => $form->createView()]);
+   
     }
+
+    /**
+     * @Route("/admin/gesactus_supp/{id}", name="app_admin_gesactus_supp", methods={"DELETE"})
+     */
+    public function suppactu(Request $request,EntityManagerInterface $em,News $new): Response
+    {               
+            $em->remove($new);
+            $em->flush();
+
+            $this->addFlash('info', 'Actualité supprimée');
+
+            return $this->redirectToRoute('app_admin_gesactus');
+    }
+    
 }

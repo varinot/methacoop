@@ -1,0 +1,29 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Ajout Membre {% endblock %}
+
+{% block body %}
+    <style>
+
+    </style>
+    <h1>AJOUTER UN MEMBRE</h1>
+    
+    <div class="row">
+        <div class="col-md-10 mx-auto">
+       
+       {{ form_start(utilform) }} 
+        {{ form_widget(utilform) }}
+        <br></br> 
+        <input type="submit" value="Validation de la Création" class="btn btn-primary btn-block"> 
+       {{ form_end(utilform) }} 
+    
+        <br></br>
+         </div>
+        <div class="col-md-10 mx-auto">
+           
+        <a href="{{ path('app_admin')}}">retour espace administrateur</a>
+         <a href="{{ path('accueil')}}">retour accueil</a>
+        </div>
+    </div>
+
+{% endblock %}

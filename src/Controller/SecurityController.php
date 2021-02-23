@@ -6,7 +6,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
-
+use Symfony\Component\Validator\Constraints as Assert;
 class SecurityController extends AbstractController
 {
     /**
@@ -14,8 +14,8 @@ class SecurityController extends AbstractController
      */
     public function login(AuthenticationUtils $authenticationUtils): Response
     {
-         if ($this->getUser()) {
-           return $this->redirectToRoute('actus');
+         if ($this->getUser($authenticationUtils)) {
+           return $this->redirectToRoute('app_admin');
          }
 
         // get the login error if there is one

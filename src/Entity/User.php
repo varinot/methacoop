@@ -6,16 +6,16 @@ use App\Repository\UserRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\UserInterface;
-use App\Entity\Traits\Gestemps;
-
+use App\Entity\Traits\Gescredat;
+use Symfony\Component\Validator\Constraints as Assert;
 /**
  * @ORM\Entity(repositoryClass=UserRepository::class)
  * @ORM\HasLifecycleCallbacks
- * @UniqueEntity(fields={"email"}, message="There is already an account with this email")
+ * @UniqueEntity(fields={"email"}, message="Il y a déjà un compte avec cet email")
  */
 class User implements UserInterface
 {
-    use Gestemps;
+    use Gescredat;
     /**
      * @ORM\Id
      * @ORM\GeneratedValue
@@ -41,6 +41,8 @@ class User implements UserInterface
 
     /**
      * @ORM\Column(type="string", length=60, nullable=true)
+     * @Assert\NotBlank(message="le nom doit avoir au moins 1 caractère alphabétique")
+     * @Assert\Length(min=1)
      */
     private $nom;
 
@@ -66,11 +68,15 @@ class User implements UserInterface
 
     /**
      * @ORM\Column(type="string", length=6, nullable=true)
+     * @Assert\NotBlank(message="le code postal doit avoir au moins 4 caractères")
+     * @Assert\Length(min=4)
      */
     private $codpost;
 
     /**
      * @ORM\Column(type="string", length=80, nullable=true)
+     * @Assert\NotBlank(message="le nom de ville doit avoir au moins 2 caractères")
+     * @Assert\Length(min=2)
      */
     private $ville;
 
@@ -196,7 +202,7 @@ class User implements UserInterface
         return $this->numvoie;
     }
 
-    public function setNumvoie(string $numvoie): self
+    public function setNumvoie(?string $numvoie): self
     {
         $this->numvoie = $numvoie;
 

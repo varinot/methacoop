@@ -2,17 +2,17 @@
 
 namespace App\Entity;
 
-use App\Entity\Traits\Gestemps;
+use App\Entity\Traits\Gescredat;
 use App\Repository\NewsRepository;
 use Doctrine\ORM\Mapping as ORM;
-
+use Symfony\Component\Validator\Constraints as Assert;
 /**
  * @ORM\Entity(repositoryClass=NewsRepository::class)
  * @ORM\HasLifecycleCallbacks
  */
 class News
 {
-    use Gestemps;
+    use Gescredat;
     /**
      * @ORM\Id
      * @ORM\GeneratedValue
@@ -22,11 +22,15 @@ class News
 
     /**
      * @ORM\Column(type="string", length=100)
+     * @Assert\NotBlank(message="le titre doit avoir au moins 4 caractères")
+     * @Assert\Length(min=4)
      */
     private $newstit;
 
     /**
      * @ORM\Column(type="text", nullable=true)
+     * @Assert\NotBlank(message="le contenu doit avoir au moins 14 caractères")
+     * @Assert\Length(min=14)
      */
     private $newscont;
 

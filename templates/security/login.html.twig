@@ -3,44 +3,60 @@
 {% block title %}Log in{% endblock %}
 
 {% block body %}
-<form method="post">
-    {% if error %}
-        <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
-    {% endif %}
+<div class="row">
+    <div class="col-md-10 mx-auto">
+        <br>
+        <form method="post">
+            {% if error %}
+                <div class="alert alert-danger">
+                    {{ error.messageKey|trans(error.messageData, 'security') }}
+                </div>
+            {% endif %}
 
-    {% if app.user %}
-        <div class="mb-3">
-            Vous êtes connecté avec {{ app.user.username }}, <a href="{{ path('app_logout') }}">Logout</a>
-        </div>
-    {% endif %}
+            {% if app.user %}
+                <div class="mb-3">
+                Vous êtes connecté avec {{ app.user.username }},    
+                <a href="{{ path('app_logout') }}">Logout</a>
+                </div>
+            {% endif %}
+            <br>
+            <h1 class="h3 mb-3 font-weight-normal">
+            Veuillez vous identifier
+            </h1>
 
-    <h1 class="h3 mb-3 font-weight-normal">Veuillez vous identifier</h1>
-    <label for="inputEmail">veuillez renseigner votre adresse Email</label>
-    <input type="email" value="{{ last_username }}" name="email" id="inputEmail" class="form-control" required autofocus>
-    <label for="inputPassword">veuillez indiquer votre Mot de passe</label>
-    <input type="password" name="password" id="inputPassword" class="form-control" required>
-
-    <input type="hidden" name="_csrf_token"
-           value="{{ csrf_token('authenticate') }}"
-    >
-
-       <div> 
-            <div class="checkbox mb-3">
-            <label>
-                <input type="checkbox" name="_remember_me"> se souvenir de moi
+            <label for="inputEmail">
+            Veuillez renseigner votre adresse Email
             </label>
-            </div>
+
+            <input type="email" value="{{ last_username }}" name="email" id="inputEmail" class="form-control" required autofocus>
+            <label for="inputPassword">
+            Veuillez indiquer votre Mot de passe
+            </label>
+            <input type="password" name="password" id="inputPassword" class="form-control" required>
+
+                    <input type="hidden" name="_csrf_token"
+           value="{{ csrf_token('authenticate'~ app.user) }}">
+    
+    
+            <div> 
+                <div class="checkbox mb-3">
+                    <label>
+                    <input type="checkbox" name="_remember_me">
+                    se souvenir de moi
+                    </label>
+                </div>
             <a href="#"> Mot de passe oublié?</a>
-        </div>
-</div>
-</div>
+            </div>
+            <button class="btn btn-lg btn-primary" type="submit">
+            veuillez valider votre authentification
+            </button>
 
-    <button class="btn btn-lg btn-primary" type="submit">
-        veuillez valider votre authentification
-    </button>
-
-    <p class="mt-8 mb-5 text-center text-muted">
-    N'êtes-vous pas encore membre?<a href="{{ path('app_register') }}">
-    Veuillez créer votre compte</a> 
-</form>
+            <p class="mt-8 mb-5 text-center text-muted">
+            N'êtes-vous pas encore membre?
+            <a href="{{ path('app_register') }}">
+            Veuillez créer votre compte
+            </a> 
+        </form>
+    </div>
+</div> 
 {% endblock %}

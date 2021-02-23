@@ -10,13 +10,19 @@
 
 <div class="example-wrapper">
     <h1>GESTION DES DOCUMENTATIONS</h1>
-
-    This friendly message is coming from:
+    <br>
+    </br>
     {% for doc in docs %}
     <div>
         <h2><a href="{{ path('app_admin_gesdocs_detail', {id: doc.id}) }}">{{ doc.doctit }} </a></h2>
-        {#<p>{{ [doc.createdAt] }} </p>#}
+        <p>créée le {{ doc.createdAt|date }} </p>
+        <p>mise à jour le {{ doc.updatedAt|date }} </p> 
     </div>
     {% endfor %}
-</div>
+    <div>
+        <h2><a href="{{ path('app_admin_gesdocs_ajout') }}"> Ajout de Documentation</a></h2>
+        <p>  --------------        </p>
+        <h2><a href="{{ path('app_admin')}}">retour espace administrateur</a></h2>
+    </div>
+
 {% endblock %}

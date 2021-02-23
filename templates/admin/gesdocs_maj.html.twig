@@ -1,0 +1,30 @@
+ {% extends 'base.html.twig' %}
+
+{% block title %}Mise à jour d'une Documentation{% endblock %}
+
+{% block body %}
+<style>
+    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
+    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
+</style>
+
+<div class="example-wrapper">
+    <h1>METTRE À JOUR UNE DOCUMENTATION</h1>
+    <div class="row">
+        <div class="col-md-10 mx-auto">
+        <br>
+        {{ form_start(docuform) }} 
+        {{ form_widget(docuform) }}
+        <input type="submit" value="Validation de la Mise à jour"> 
+       {{ form_end(docuform) }} 
+        <br>
+        </div>
+    </div>
+    <div>
+        <h2><a href="{{ path('app_admin_gesdocs') }}">retour liste documentations </a></h2>
+        <b>
+        <a href="{{ path('app_admin')}}">retour espace administrateur</a>
+        </b>
+    </div>
+</div>
+{% endblock %}

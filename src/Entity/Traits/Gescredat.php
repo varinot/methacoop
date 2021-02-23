@@ -2,18 +2,12 @@
 
 namespace App\Entity\Traits;
 
-trait Gestemps
+trait Gescredat
 {
      /**
      * @ORM\Column(type="datetime", options={"default": "CURRENT_TIMESTAMP"})
      */
     private $createdAt;
-
-          /**
-     * @ORM\Column(type="datetime", options={"default": "CURRENT_TIMESTAMP"})
-     */
-    private $updatedAt;
-
     public function getCreatedAt(): ?\DateTimeInterface
     {
         return $this->createdAt;
@@ -25,30 +19,15 @@ trait Gestemps
 
         return $this;
     }
-   
-    public function getUpdatedAt(): ?\DateTimeInterface
-    {
-        return $this->updatedAt;
-    }
-
-    public function setUpdatedAt(\DateTimeInterface $updatedAt): self
-    {
-        $this->updtedAt = $updatedAt;
-
-        return $this;
-    }
-   
-     /**
+    /**
      * @ORM\PrePersist
      * @ORM\PreUpdate
      */ 
     
-    public function Majtemps()
+    public function Majcre()
     {
         if ($this->getCreatedAt() === null){
         $this->setCreatedAt(new \DateTimeImmutable());
         }
-        $this->setUpdatedAt(new \DateTimeImmutable());
-    }
-
-}
+    }    
+}   

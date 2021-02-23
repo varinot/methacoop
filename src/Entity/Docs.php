@@ -4,8 +4,9 @@ namespace App\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use App\Repository\DocsRepository;
 use Symfony\Component\HttpFoundation\File\File;
+use Symfony\Component\Validator\Constraints as Assert;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
-
+use App\Entity\Traits\Gestemps;
 /**
  * @ORM\Entity(repositoryClass=DocsRepository::class)
  * @Vich\Uploadable
@@ -13,6 +14,7 @@ use Vich\UploaderBundle\Mapping\Annotation as Vich;
  */
 class Docs
 {
+    use Gestemps;
     /**
      * @ORM\Id
      * @ORM\GeneratedValue
@@ -22,13 +24,15 @@ class Docs
 
     /**
      * @ORM\Column(type="string", length=110)
+     * @Assert\NotBlank(message="le titre doit avoir au moins 4 caractères")
+     * @Assert\Length(min=4)
      */
     private $doctit;
 
      /**
      * NOTE: This is not a mapped field of entity metadata, just a simple property.
      * 
-     * @Vich\UploadableField(mapping="docs_image", fileNameProperty="docref")
+     * @Vich\UploadableField(mapping="docs_image", fileNameProperty="imageName")
      * 
      * @var File|null
      */
@@ -36,6 +40,8 @@ class Docs
 
     /**
      * @ORM\Column(type="string", length=40)
+     * @Assert\NotBlank(message="la référence doit avoir au moins 4 caractères")
+     * @Assert\Length(min=4)
      */
     private $docref;
 
@@ -43,6 +49,16 @@ class Docs
      * @ORM\Column(type="datetime", options={"default": "CURRENT_TIMESTAMP"})
      */
     private $createdAt;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $imageName;
+
+    /**
+     * @ORM\Column(type="datetime", options={"default": "CURRENT_TIMESTAMP"})
+     */
+    private $updatedAt;
 
     public function getId(): ?int
     {
@@ -62,12 +78,6 @@ class Docs
     }
 
      /**
-     * If manually uploading a file (i.e. not using Symfony Form) ensure an instance
-     * of 'UploadedFile' is injected into this setter to trigger the update. If this
-     * bundle's configuration parameter 'inject_on_load' is set to 'true' this setter
-     * must be able to accept an instance of 'File' as the bundle will inject one here
-     * during Doctrine hydration.
-     *
      * @param File|\Symfony\Component\HttpFoundation\File\UploadedFile|null $imageFile
      */
     public function setImageFile(?File $imageFile = null): void
@@ -77,7 +87,7 @@ class Docs
         if (null !== $imageFile) {
             // It is required that at least one field changes if you are using doctrine
             // otherwise the event listeners won't be called and the file is lost
-            $this->updatedAt = new \DateTimeImmutable();
+            $this->setUpdatedAt(new \DateTimeImmutable);
         }
     }
 
@@ -109,15 +119,41 @@ class Docs
 
         return $this;
     }
+   
+    public function getImageName(): ?string
+    {
+        return $this->imageName;
+    }
 
+    public function setImageName(?string $imageName): self
+    {
+        $this->imageName = $imageName;
+
+        return $this;
+    }
+
+    public function getUpdatedAt(): ?\DateTimeInterface
+    {
+        return $this->updatedAt;
+    }
+
+    public function setUpdatedAt(?\DateTimeInterface $updatedAt): self
+    {
+        $this->updatedAt = $updatedAt;
+
+        return $this;
+    }
     /**
      * @ORM\PrePersist
      * @ORM\PreUpdate
      */ 
     
-    public function Majtemps()
+    public function updateTimestamp()
     {
-        $this->setCreatedAt(new \DateTimeImmutable());
+       if($this->getCreatedAt()=== null)
+       {
+          $this->setCreatedAt(new \DateTimeImmutable());
+       }
+       $this->setUpdatedAt(new \DateTimeImmutable());
     }
-
 }
