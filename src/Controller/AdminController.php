@@ -4,10 +4,12 @@ namespace App\Controller;
 use App\Entity\News;
 use App\Entity\Docs;
 use App\Entity\User;
+use App\Entity\Depots;
 use App\Form\DocuType;
 use App\Repository\DocsRepository;
 use App\Repository\NewsRepository;
 use App\Repository\UserRepository;
+use App\Repository\DepotsRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
@@ -208,8 +210,6 @@ class AdminController extends AbstractController
         return $this->render('admin/gesusers_maj.html.twig', ['util' => $util, 'utilform' => $form->createView()]);
        
     } 
- 
-
     /**
      * @Route("/admin/gesusers_supp/{id}", name="app_admin_gesusers_supp", methods={"DELETE"})
      */
@@ -222,7 +222,6 @@ class AdminController extends AbstractController
 
             return $this->redirectToRoute('app_admin_gesusers');
     }
-    
 
     /**
      * @Route("/admin/gesdocs_supp/{id}", name="app_admin_gesdocs_supp", methods={"DELETE"})
@@ -238,6 +237,34 @@ class AdminController extends AbstractController
     }
     
     /**
+     * @Route("/admin/gesdepots_ajout", name="app_admin_gesdepots_ajout", methods={"GET", "POST"})
+     */
+    public function depotsajout(Request $request, EntityManagerInterface $em): Response 
+    { 
+        $depot = new Depots;
+        
+        $form = $this->createForm(DepoType::class, $depot);
+            
+        $form->handleRequest($request);
+        
+        if ($form->isSubmitted() && $form->isValid())
+        {
+            
+           
+            $em->persist($depot);
+            
+            $em->flush();
+
+            $this->addFlash('success', 'Dépôt créé avec succès');
+
+            return $this->redirectToRoute('app_admin_gesdepots');
+        }
+        return $this->render('admin/gesdepots_ajout.html.twig', ['depotform' => $form->createView()]);
+    }
+
+
+
+    /**
      * @Route("/admin/gesdepots", name="app_admin_gesdepots")
      */
     public function gesdepots(): Response
@@ -245,7 +272,6 @@ class AdminController extends AbstractController
         return $this->render('admin/gesdepots_index.html.twig');
     }          
     
-
     /**
      * @Route("/admin/gesdocs_maj/({id}", name="app_admin_gesdocs_maj", methods={"GET", "PUT"})
      */
