@@ -47,7 +47,7 @@ class AccueilController extends AbstractController
     {
          if ($this->getUser($authenticationUtils)) 
          {
-           return $this->redirectToRoute('app_register');
+           return $this->redirectToRoute('propos');
          }
          return $this->render('security/login.html.twig');
         }
