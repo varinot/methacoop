@@ -17,9 +17,9 @@ use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
-/**
- * @[IsGranted("ROLE_USER")]
- */
+///**
+// * @[IsGranted("ROLE_USER")]
+// */
 
 class ProfileController extends AbstractController
 {
@@ -41,8 +41,17 @@ class ProfileController extends AbstractController
     }
 
     /**
+     * @Route("/profile/depots_maliste", name="app_profile_depots_maliste",methods="GET")
+     */
+    public function mesdepots(DepotsRepository $depotsRepository): Response
+    { 
+        $depots = $depotsRepository->findBy([], ['createdAt' => 'DESC']);
+        return $this->render('profile/depots_maliste.html.twig', compact('depots'));
+    }
+    /**
      * @Route("/profile/depots_ajout", name="app_profile_depots_ajout", methods={"GET", "POST"})
      */
+    
     public function depotsajout(Request $request, EntityManagerInterface $em): Response 
     { 
         $depot = new Depots;
@@ -53,24 +62,25 @@ class ProfileController extends AbstractController
         
         if ($form->isSubmitted() && $form->isValid())
         {
+            $depot->setUser($this->getUser());
             $em->persist($depot);
             
             $em->flush();
 
             $this->addFlash('success', 'Dépôt créé');
 
-            return $this->redirectToRoute('app_profile_depots_liste');
+            return $this->redirectToRoute('app_profile_depots_maliste');
         }
         return $this->render('profile/depots_ajout.html.twig', ['depotform' => $form->createView()]);
     }
 
     /**
-     * @Route("/profile/annuaire", name="app_aprofile_annuaire")
+     * @Route("/profile/annuaire", name="app_profile_annuaire")
      */
     public function listusers(UserRepository $userRepository): Response
     {
-        $utils = $userRepository->findBy([], ['createdAt' => 'DESC']);
-        return $this->render('profile/annuaire.html.twig', compact('utils'));
+        $users = $userRepository->findBy([], ['createdAt' => 'DESC']);
+        return $this->render('profile/annuaire.html.twig', compact('users'));
     }
 
 
@@ -84,6 +94,38 @@ class ProfileController extends AbstractController
     }
 
     /**
+     * @Route("/profile/depots_maj/({id}", name="app_profile_depots_maj", methods={"GET", "PUT"})
+     */
+   
+    public function depotmaj(Request $request, EntityManagerInterface $em, Depots $depot, User $user): Response 
+        { 
+     
+        $form = $this->createForm(DepoType::class, $depot, ['method' => 'PUT']);
+         
+        $form->handleRequest($request);
+  
+        if ($form->isSubmitted() && $form->isValid())
+        {
+            $em->persist($depot);
+            
+            $em->flush();
+            
+        //  $util = $userRepository->getUser(depot.id); 
+            { 
+        //  $user->setnbdepot('nbdepot + 1', IntegerType::class);
+        //  $em->persist($user);
+                     
+        //         $em->flush(); 
+        //         return $user;
+             }
+            $this->addFlash('success', 'Dépôt mis à jour');
+            
+            return $this->redirectToRoute('app_profile_maliste');
+        }
+        return $this->render('profile/depots_maj.html.twig', ['depoform' => $form->createView()]);
+   
+    }
+ /**
      * @Route("/profile/depots_supp/{id}", name="app_profile_depots_supp", methods={"DELETE"})
      */
     //public function supdepot(Request $request,EntityManagerInterface $em,Depots $depot): Response
@@ -96,28 +138,4 @@ class ProfileController extends AbstractController
 
   //          return $this->redirectToRoute('app_profile_depots_index');
   //  }
-
-  /**
-     * @Route("/admin/depots_maj/({id}", name="app_profile_depots_maj", methods={"GET", "PUT"})
-     */
-    public function depotmaj(Request $request, EntityManagerInterface $em, Depots $depot): Response 
-    { 
-        $form = $this->createForm(DepoType::class, $depot, ['method' => 'PUT']);
-         
-        $form->handleRequest($request);
-        
-        if ($form->isSubmitted() && $form->isValid())
-        {
-            $em->persist($depot);
-            
-            $em->flush();
-
-            $this->addFlash('success', 'Dépôt mis à jour');
-            
-            return $this->redirectToRoute('app_profile_liste');
-        }
-        return $this->render('profile/depots_maj.html.twig', ['depoform' => $form->createView()]);
-   
-    }
-
 }

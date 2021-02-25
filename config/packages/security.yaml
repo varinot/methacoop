@@ -11,6 +11,7 @@ security:
             entity:
                 class: App\Entity\User
                 property: email
+                
         # used to reload user from session & other features (e.g. switch_user)
     firewalls:
         dev:
@@ -41,4 +42,4 @@ security:
     access_control:
         - { path: ^/admin, roles: ROLE_ADMIN }
         - { path: ^/profile, roles: ROLE_USER }
-        - { path: ^/actus, roles: }
+        - { path: ^/, roles: }

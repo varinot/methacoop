@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}ANNUAIRE MEMBRES{% endblock %}
+{% block title %}MES DEPOTS{% endblock %}
 
 {% block body %}
 <style>
@@ -9,21 +9,20 @@
 </style>
 
 <div class="example-wrapper">
-    <h1>ANNUAIRE DES MEMBRES </h1>
+    <h1>GESTION DE MES DEPOTS</h1>
     <br>
     </br>
-    {% for user in users %}
+    {% for depot in depots %}
     <div>
-    
-    {#<h2><a href="{{ path('app_profile_depots_detail', {id: depot.id}) }}">{{ depot.depotit }} </a></h2>#}
-        
-        <p> nom {{ user.nom }} </p>
+        <h2><a href="{{ path('app_profile_depots_detail', {id: depot.id}) }}">{{ depot.depotit }} </a></h2>
+        <p>créée le {{ depot.createdAt|date }} </p>
+        <p>mise à jour le {{ depot.updatedAt|date }} </p> 
     </div>
     {% endfor %}
     <div>
-        
+        <h2><a href="{{ path('app_profile_depots_ajout') }}"> Ajout de Dépôt</a></h2>
         <p>  --------------        </p>
         <h2><a href="{{ path('profile')}}">retour espace membre</a></h2>
-    </div>  
-</div>
+    </div>
+
 {% endblock %}

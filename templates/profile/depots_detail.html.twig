@@ -1,4 +1,4 @@
-% extends 'base.html.twig' %}
+{% extends 'base.html.twig' %}
 
 {% block title %}Gestion Détail DEPOT {% endblock %}
 
@@ -14,21 +14,21 @@
        <p>créée le {{ depot.createdAt|date }} </p> 
         <p>modifiée le {{ depot.updatedAt|date }} </p> 
         <br>
-        <img src="{{ (depot.imageName ? vich_uploader_asset(doc) : asset('build/
+        <img src="{{ (depot.imageName ? vich_uploader_asset(depot) : asset('build/
         images/placeholder.jpg')) }} ">
         <br></br>
-       <a href="{{ path('app_profile_depots_maj', {id: doc.id})}}">  mise à jour de la documentation</a>
+       <a href="{{ path('app_profile_depots_maj', {id: depot.id})}}">  mise à jour de mon dépôt</a>
        </br>
         <p>
-            <form action="{{ path('app_profile_depots_supp',{id: depot.id}) }}" method="post">
+        {#    <form action="{{ path('app_profile_depots_supp',{id: depot.id}) }}" method="post">
                 <input type="hidden" name="_method" value="DELETE">
                 <input type="submit" value="Suppression"> 
-            </form>
+            </form> #}
         </p>
         <br>
-        <a href="{{ path('app_profile_depots_index')}}">retour gestion liste de vos dépôts</a><br>
+        <a href="{{ path('app_profile_depots_maliste')}}">retour gestion liste de vos dépôts</a><br>
         <br>
-        <a href="{{ path('app_profile')}}">retour espace membre</a>
+        <a href="{{ path('profile')}}">retour espace membre</a>
     </div>
 </div>    
     {% endblock %}
