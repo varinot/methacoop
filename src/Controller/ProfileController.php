@@ -28,8 +28,96 @@ class ProfileController extends AbstractController
      */
     public function index(): Response
     {
-        return $this->render('profile/index.html.twig', [
-            'controller_name' => 'ProfileController',
-        ]);
+        return $this->render('profile/index.html.twig');
     }
+
+    /**
+     * @Route("/profile/depots_liste", name="app_profile_depots_liste",methods="GET")
+     */
+    public function depotsindex(DepotsRepository $depotsRepository): Response
+    { 
+        $depots = $depotsRepository->findBy([], ['createdAt' => 'DESC']);
+        return $this->render('profile/depots_liste.html.twig', compact('depots'));
+    }
+
+    /**
+     * @Route("/profile/depots_ajout", name="app_profile_depots_ajout", methods={"GET", "POST"})
+     */
+    public function depotsajout(Request $request, EntityManagerInterface $em): Response 
+    { 
+        $depot = new Depots;
+        
+        $form = $this->createForm(DepoType::class, $depot);
+            
+        $form->handleRequest($request);
+        
+        if ($form->isSubmitted() && $form->isValid())
+        {
+            $em->persist($depot);
+            
+            $em->flush();
+
+            $this->addFlash('success', 'Dépôt créé');
+
+            return $this->redirectToRoute('app_profile_depots_liste');
+        }
+        return $this->render('profile/depots_ajout.html.twig', ['depotform' => $form->createView()]);
+    }
+
+    /**
+     * @Route("/profile/annuaire", name="app_aprofile_annuaire")
+     */
+    public function listusers(UserRepository $userRepository): Response
+    {
+        $utils = $userRepository->findBy([], ['createdAt' => 'DESC']);
+        return $this->render('profile/annuaire.html.twig', compact('utils'));
+    }
+
+
+    /**
+     * @Route("/profile/depots_detail/{id}", name="app_profile_depots_detail")
+     */
+    public function depotdetail(Depots $depot): Response
+    {  
+                   
+        return $this->render('profile/depots_detail.html.twig',compact('depot'));
+    }
+
+    /**
+     * @Route("/profile/depots_supp/{id}", name="app_profile_depots_supp", methods={"DELETE"})
+     */
+    //public function supdepot(Request $request,EntityManagerInterface $em,Depots $depot): Response
+    //{   
+      //  if            
+      //      $em->remove($depot);
+      //      $em->flush();
+
+//            $this->addFlash('info', 'Dépôt supprimé');
+
+  //          return $this->redirectToRoute('app_profile_depots_index');
+  //  }
+
+  /**
+     * @Route("/admin/depots_maj/({id}", name="app_profile_depots_maj", methods={"GET", "PUT"})
+     */
+    public function depotmaj(Request $request, EntityManagerInterface $em, Depots $depot): Response 
+    { 
+        $form = $this->createForm(DepoType::class, $depot, ['method' => 'PUT']);
+         
+        $form->handleRequest($request);
+        
+        if ($form->isSubmitted() && $form->isValid())
+        {
+            $em->persist($depot);
+            
+            $em->flush();
+
+            $this->addFlash('success', 'Dépôt mis à jour');
+            
+            return $this->redirectToRoute('app_profile_liste');
+        }
+        return $this->render('profile/depots_maj.html.twig', ['depoform' => $form->createView()]);
+   
+    }
+
 }

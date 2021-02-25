@@ -11,14 +11,14 @@
     <h1>Bonjour </h1>
 
 <br></br>
-        {#<div>
-    <a href="{{ path('app_profile_annuaire') }}">La liste des membres</a><br>
+        <div>
+        <a href="{{ path('app_profile_annuaire') }}">Annuaire des membres</a><br>#}
         <br></br>
-        <a href="{{ path('app_profile_mesdepots') }}">La liste de vos dépôts</a><br>
+        <a href="{{ path('app_profile_depots_index') }}">La liste de vos dépôts</a><br>
         <br></br>
         <a href="{{ path('app_profile_depots_ajout') }}">Ajout d'un dépôt</a><br>
         <br></br>
-        <a href="{{ path('app_profile_gesdepots') }}">La liste des dépôts</a><br>
-    </div> #}
+        <a href="{{ path('profile') }}">RETOUR ESPACE MEMBRE</a><br>
+    </div> 
 </div>
 {% endblock %}
