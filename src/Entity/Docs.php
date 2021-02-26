@@ -33,6 +33,7 @@ class Docs
      * NOTE: This is not a mapped field of entity metadata, just a simple property.
      * 
      * @Vich\UploadableField(mapping="docs_image", fileNameProperty="imageName")
+     * @Assert\Image(maxSize="8M", maxSizeMessage="la taille ne doit pas dépasser 8Mo")
      * 
      * @var File|null
      */

@@ -64,7 +64,13 @@ class ProfileController extends AbstractController
         {
             $depot->setUser($this->getUser());
             $em->persist($depot);
-            
+                    //  $util = $userRepository->getUser(depot.id); 
+                   // { 
+                        //  $user->setnbdepot('nbdepot + 1');
+                        //  $em->persist($user);
+                                     
+                        //         $em->flush(); 
+                        //         return $user;
             $em->flush();
 
             $this->addFlash('success', 'Dépôt créé');
@@ -98,7 +104,7 @@ class ProfileController extends AbstractController
      */
    
     public function depotmaj(Request $request, EntityManagerInterface $em, Depots $depot, User $user): Response 
-        { 
+    { 
      
         $form = $this->createForm(DepoType::class, $depot, ['method' => 'PUT']);
          
@@ -109,25 +115,17 @@ class ProfileController extends AbstractController
             $em->persist($depot);
             
             $em->flush();
-            
-        //  $util = $userRepository->getUser(depot.id); 
-            { 
-        //  $user->setnbdepot('nbdepot + 1');
-        //  $em->persist($user);
-                     
-        //         $em->flush(); 
-        //         return $user;
-             }
+
             $this->addFlash('success', 'Dépôt mis à jour');
             
-            return $this->redirectToRoute('app_profile_maliste');
+            return $this->redirectToRoute('app_profile_depots_maliste');
         }
         return $this->render('profile/depots_maj.html.twig', ['depoform' => $form->createView()]);
    
     }
- /**
-     * @Route("/profile/depots_supp/{id}", name="app_profile_depots_supp", methods={"DELETE"})
-     */
+ ///**
+  //   * @Route("/profile/depots_supp/{id}", name="app_profile_depots_supp", methods={"DELETE"})
+  //   */
     //public function supdepot(Request $request,EntityManagerInterface $em,Depots $depot): Response
     //{   
       //  if            

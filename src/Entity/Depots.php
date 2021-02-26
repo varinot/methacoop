@@ -33,7 +33,8 @@ class Depots
     /**
      * NOTE: This is not a mapped field of entity metadata, just a simple property.
      * 
-     * @Vich\UploadableField(mapping="docs_image", fileNameProperty="imageName")
+     * @Vich\UploadableField(mapping="depots_image", fileNameProperty="imageName")
+     * @Assert\Image(maxSize="8M", maxSizeMessage="la taille ne doit pas dépasser 2Mo")
      * 
      * @var File|null
      */

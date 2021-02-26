@@ -28,18 +28,17 @@ class DepoType extends AbstractType
             'download_uri' => true,
             'image_uri' => true,
             'asset_helper' => true,
-            ])
- //->add('user')     
-           // ->add('genericFile', VichFileType::class, [
-           //     'required' => false,
-           //     'allow_delete' => true,
-           //     'delete_label' => '...',
-           //     'download_uri' => '...',
-           //     'download_label' => '...',
-           //     'asset_helper' => true,
-            //])
-               
-            ;
+            ]);
+            
+            $builder   
+            ->add('genericFile', VichFileType::class, [
+               'required' => false,
+               'allow_delete' => true,
+               'delete_label' => 'Suppression de ce fichier',
+               'download_uri' => 'true',
+               'download_label' => 'Téléchargement',
+               'asset_helper' => true,
+          ]);
 
     }
 
