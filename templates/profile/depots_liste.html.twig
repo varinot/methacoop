@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}VOS DEPOTS{% endblock %}
+{% block title %}les DEPOTS{% endblock %}
 
 {% block body %}
 <style>
@@ -14,8 +14,8 @@
     </br>
     {% for depot in depots %}
     <div>
-    <h2>{{ depot.depotit }}</h2>
-    <h2><a href="{{ path('app_profile_depots_detail', {id: depot.id}) }}">{{ depot.depotit }} </a></h2>#}
+    
+    <h2><a href="{{ path('app_profile_depots_detail', {id: depot.id}) }}">{{ depot.depotit }} </a></h2>
         <p>créé le {{ depot.createdAt|date }} </p>
         <p>mis à jour le {{ depot.updatedAt|date }} </p> 
         <p> par {{ depot.user.nom }} </p>

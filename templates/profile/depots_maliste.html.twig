@@ -14,9 +14,11 @@
     </br>
     {% for depot in depots %}
     <div>
-        <h2><a href="{{ path('app_profile_depots_detail', {id: depot.id}) }}">{{ depot.depotit }} </a></h2>
-        <p>créée le {{ depot.createdAt|date }} </p>
-        <p>mise à jour le {{ depot.updatedAt|date }} </p> 
+        {% if depot.user is same as app.user %}
+            <h2><a href="{{ path('app_profile_depots_detail', {id: depot.id}) }}">{{ depot.depotit }} </a></h2>
+            <p>créée le {{ depot.createdAt|date }} </p>
+            <p>mise à jour le {{ depot.updatedAt|date }} </p> 
+        {% endif %}
     </div>
     {% endfor %}
     <div>

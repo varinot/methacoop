@@ -17,9 +17,9 @@ use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
-///**
-// * @[IsGranted("ROLE_USER")]
-// */
+/**
+ * @[IsGranted("ROLE_USER")]
+ */
 
 class ProfileController extends AbstractController
 {
@@ -112,7 +112,7 @@ class ProfileController extends AbstractController
             
         //  $util = $userRepository->getUser(depot.id); 
             { 
-        //  $user->setnbdepot('nbdepot + 1', IntegerType::class);
+        //  $user->setnbdepot('nbdepot + 1');
         //  $em->persist($user);
                      
         //         $em->flush(); 
