@@ -1,0 +1,25 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}METHACOOP Dépôts membres{% endblock %}
+
+{% block body %}
+<style>
+    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
+    .example-wrapper code { background: pink; padding: 2px 6px; }
+</style>
+
+<div class="example-wrapper">
+    <h1>LES DEPÔTS DES MEMBRES </h1>
+
+    {% for depot in depots %}
+    <div>
+        <h2><a href="{{ path('app_depots_détail_doc', {id: depot.id}) }}">{{ depot.depoit }}</a></h2>
+         <p>créé le {{ depot.createdAt|date }} </p>
+        <p>mis à jour le {{ depot.updatedAt|date }} </p> 
+        <p> par {{ depot.user.nom }} </p>
+    
+    </div>
+    {% endfor %}   
+    
+</div>
+{% endblock %}

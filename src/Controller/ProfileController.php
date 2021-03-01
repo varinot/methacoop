@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\User;
 use App\Entity\Depots;
 use App\Form\DepoType;
+use App\Service\FileUploader;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -17,6 +18,12 @@ use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
+use Symfony\Component\HttpFoundation\File\Exception\FileException;
+use Symfony\Component\HttpFoundation\File\File;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
+use Symfony\Component\String\Slugger\SluggerInterface;
+
+
 /**
  * @[IsGranted("ROLE_USER")]
  */
@@ -52,7 +59,7 @@ class ProfileController extends AbstractController
      * @Route("/profile/depots_ajout", name="app_profile_depots_ajout", methods={"GET", "POST"})
      */
     
-    public function depotsajout(Request $request, EntityManagerInterface $em): Response 
+    public function ajoudepot(Request $request, SluggerInterface $slugger, FileUploader $fileUploader, EntityManagerInterface $em, UserRepository $userRepository): Response 
     { 
         $depot = new Depots;
         
@@ -62,6 +69,31 @@ class ProfileController extends AbstractController
         
         if ($form->isSubmitted() && $form->isValid())
         {
+          /** @var UploadedFile $depoFile */ 
+
+            $depoFile = $form->get('depoFileName')->getData();
+
+            if ($depoFile)
+            {
+                $originalFilename = pathinfo($depoFile->getClientOriginalName(), PATHINFO_FILENAME);
+                
+                $safeFilename = $slugger->slug($originalFilename);
+                $newFilename = $safeFilename.'-'.uniqid().'.'.$depoFile->guessExtension();
+                try {
+                    $depoFile->move(
+                        $this->getParameter('depofichiers_directory'),
+                        $newFilename
+                    );
+                    }
+                catch (FileException $e)
+                {
+
+                }  
+                $depoFileName = $fileUploader->upload($depoFile);
+                $depot->setDepoFilename($depoFileName); 
+                $depot->setDepoFilename($newFilename); 
+            }
+                
             $depot->setUser($this->getUser());
             $em->persist($depot);
                     //  $util = $userRepository->getUser(depot.id); 
@@ -74,12 +106,15 @@ class ProfileController extends AbstractController
             $em->flush();
 
             $this->addFlash('success', 'Dépôt créé');
-
+                 
             return $this->redirectToRoute('app_profile_depots_maliste');
         }
         return $this->render('profile/depots_ajout.html.twig', ['depotform' => $form->createView()]);
     }
 
+    
+
+   
     /**
      * @Route("/profile/annuaire", name="app_profile_annuaire")
      */

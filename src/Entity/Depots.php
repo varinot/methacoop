@@ -70,6 +70,10 @@ class Depots
      */
     private $depocorres;
 
+     /**
+     * @ORM\Column(type="string")
+     */
+    private $depoFilename;
     /**
      * @ORM\ManyToOne(targetEntity=User::class, inversedBy="depots")
      * @ORM\JoinColumn(nullable=false)
@@ -124,14 +128,14 @@ class Depots
         return $this->imageFile;
     }
 
-    public function getDeporef(): ?string
+    public function getDepoFilename(): ?string
     {
-        return $this->deporef;
+        return $this->depoFilename;
     }
 
-    public function setDeporef(?string $deporef): self
+    public function setDepoFilename(?string $depoFilename): self
     {
-        $this->deporef = $deporef;
+        $this->depoFilename = $depoFilename;
 
         return $this;
     }
@@ -192,6 +196,18 @@ class Depots
     public function setUser(?User $user): self
     {
         $this->user = $user;
+
+        return $this;
+    }
+
+    public function getDeporef(): ?string
+    {
+        return $this->deporef;
+    }
+
+    public function setDeporef(?string $deporef): self
+    {
+        $this->deporef = $deporef;
 
         return $this;
     }

@@ -9,6 +9,8 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Vich\UploaderBundle\Form\Type\VichFileType;
 use Vich\UploaderBundle\Form\Type\VichImageType; 
+use Symfony\Component\Form\Extension\Core\Type\FileType;
+use Symfony\Component\Validator\Constraints\File;
 
 class DepoType extends AbstractType
 {
@@ -29,15 +31,25 @@ class DepoType extends AbstractType
             'image_uri' => true,
             'asset_helper' => true,
             ]);
-            
+    
+           
             $builder   
-            ->add('genericFile', VichFileType::class, [
+            ->add('depoFilename', FileType::class, [
+               'label' => 'Document (Fichier PDF) à déposer',
+               'mapped' => false, 
                'required' => false,
-               'allow_delete' => true,
-               'delete_label' => 'Suppression de ce fichier',
-               'download_uri' => 'true',
-               'download_label' => 'Téléchargement',
-               'asset_helper' => true,
+               
+               'constraints' => [
+                new File([
+                    'maxSize' => '8M',
+                    'mimeTypes' => [
+                        'application/pdf',
+                        'application/x-pdf',
+                    ],
+                    'mimeTypesMessage' => 'Veuillez charger un fichier PDF ',
+                ])
+            ],
+
           ]);
 
     }

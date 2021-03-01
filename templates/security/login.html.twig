@@ -27,8 +27,8 @@
             <label for="inputEmail">
             Veuillez renseigner votre adresse Email
             </label>
+            <input type="email" value="" name="email" id="inputEmail" class="form-control" required autofocus>
 
-            <input type="email" value="{{ last_username }}" name="email" id="inputEmail" class="form-control" required autofocus>
             <label for="inputPassword">
             Veuillez indiquer votre Mot de passe
             </label>
@@ -54,7 +54,7 @@
             <p class="mt-8 mb-5 text-center text-muted">
             N'êtes-vous pas encore membre?
             <a href="{{ path('app_register') }}">
-            Veuillez créer votre compte
+            Veuillez vous inscrire et créer votre compte
             </a> 
         </form>
     </div>
