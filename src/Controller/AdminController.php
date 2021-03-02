@@ -7,6 +7,8 @@ use App\Entity\User;
 use App\Entity\Depots;
 use App\Form\DepoType;
 use App\Form\DocuType;
+use App\Form\DepodocType;
+use App\Service\FileUploader;
 use App\Repository\DocsRepository;
 use App\Repository\NewsRepository;
 use App\Repository\UserRepository;
@@ -22,6 +24,11 @@ use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
+use Symfony\Component\HttpFoundation\File\Exception\FileException;
+use Symfony\Component\HttpFoundation\File\File;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
+use Symfony\Component\String\Slugger\SluggerInterface;
+
 /**
  * @[IsGranted("ROLE_ADMIN")]
  */
@@ -212,10 +219,11 @@ class AdminController extends AbstractController
     /**
      * @Route("/admin/gesusers_supp/{id}", name="app_admin_gesusers_supp", methods={"DELETE"})
      */
-    public function supputil(Request $request,EntityManagerInterface $em,User $util): Response
-    {               
-            $em->remove($util);
-            $em->flush();
+    public function supputil(Request $request, EntityManagerInterface $em, User $util): Response
+    {   
+              
+        $em->remove($util);
+        $em->flush();
 
             $this->addFlash('info', 'Membre supprimé');
 
@@ -225,7 +233,7 @@ class AdminController extends AbstractController
     /**
      * @Route("/admin/gesdocs_supp/{id}", name="app_admin_gesdocs_supp", methods={"DELETE"})
      */
-    public function suppdoc(Request $request,EntityManagerInterface $em,Docs $doc): Response
+    public function suppdoc(Request $request, EntityManagerInterface $em, Docs $doc): Response
     {               
             $em->remove($doc);
             $em->flush();
@@ -238,7 +246,7 @@ class AdminController extends AbstractController
     /**
      * @Route("/admin/gesdepots_ajout", name="app_admin_gesdepots_ajout", methods={"GET", "POST"})
      */
-    public function depotsajout(Request $request, EntityManagerInterface $em, UserRepository $userRepository): Response 
+    public function depotsajout(Request $request, EntityManagerInterface $em, DepotsRepository $depotsRepository, UserRepository $userRepository): Response 
     { 
         $depot = new Depots;
         
@@ -248,7 +256,9 @@ class AdminController extends AbstractController
         
         if ($form->isSubmitted() && $form->isValid())
         {
-                       
+            
+            $depot->setUser($this->getUser());
+                        
             $em->persist($depot);
             
             $em->flush();
@@ -260,7 +270,56 @@ class AdminController extends AbstractController
         return $this->render('admin/gesdepots_ajout.html.twig', ['depotform' => $form->createView()]);
     }
 
+    /**
+     * @Route("/admin/gesdepots_ajout_doc", name="app_admin_gesdepots_ajout_doc", methods={"GET", "POST"})
+     */
+    public function depotsajoutdoc(Request $request, SluggerInterface $slugger, FileUploader $fileUploader, EntityManagerInterface $em, DepotsRepository $depotsRepository, UserRepository $userRepository): Response 
+    { 
+        $depot = new Depots;
+        
+        $form = $this->createForm(DepodocType::class, $depot);
+            
+        $form->handleRequest($request);
+        
+        if ($form->isSubmitted() && $form->isValid())
+        {
+             /** @var UploadedFile $depoFile */ 
 
+             $depoFile = $form->get('depoFileName')->getData();
+
+             if ($depoFile)
+             {
+                 $originalFilename = pathinfo($depoFile->getClientOriginalName(), PATHINFO_FILENAME);
+                 
+                 $safeFilename = $slugger->slug($originalFilename);
+                 $newFilename = $safeFilename.'-'.uniqid().'.'.$depoFile->guessExtension();
+                 try {
+                     $depoFile->move(
+                         $this->getParameter('depofichiers_directory'),
+                         $newFilename
+                     );
+                     }
+                 catch (FileException $e)
+                 {
+ 
+                 }  
+                 $depoFileName = $fileUploader->upload($depoFile);
+                 $depot->setDepoFilename($depoFileName); 
+                 $depot->setDepoFilename($newFilename); 
+             }
+                 
+             $depot->setUser($this->getUser());
+                        
+            $em->persist($depot);
+            
+            $em->flush();
+
+            $this->addFlash('success', 'Dépôt document créé avec succès par {{depot.user.nom }}' );
+
+            return $this->redirectToRoute('app_admin_gesdepots');
+        }
+        return $this->render('admin/gesdepots_ajout_doc.html.twig', ['depotdocform' => $form->createView()]);
+    }
 
     /**
      * @Route("/admin/gesdepots", name="app_admin_gesdepots")

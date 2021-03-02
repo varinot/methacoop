@@ -3,26 +3,27 @@
 {% block title %} 'MISE A JOUR Membre #' ~ util.id {% endblock %}
 
 {% block body %}
-    <style>
+<style>
     
-    </style>
+</style>
+<div class="example-wrapper">
     <h1>MISE A JOUR DU MEMBRE #{{util.id}}</h1>
     <div class="row">
         <div class="col-md-8 mx-auto">
            {{ form_start(utilform) }} 
             {{ form_widget(utilform) }}
-            {{ form_end(utilform) }} 
-        </div>
-        <br></br>
-        <div class="col-md-2 mx-auto">
             <input type="submit" value="Validation de la Mise à jour" class="btn btn-primary btn-block"> 
+            <br></br>
+            {{ form_end(utilform) }} 
             <br></br>
         </div>
         <br></br>
-        <div class="col-md-10 mx-auto">
+    </div>    
+        <br></br>
+    <div class="col-md-10 mx-auto">
             <br></br>
             <a href="{{ path('app_admin')}}">retour espace administrateur</a>
             <a href="{{ path('accueil')}}">retour accueil</a>
-        </div>
     </div>
+</div>
 {% endblock %}

@@ -13,7 +13,7 @@
 
     {% for depot in depots %}
     <div>
-        <h2><a href="{{ path('app_depots_détail_doc', {id: depot.id}) }}">{{ depot.depoit }}</a></h2>
+        <h2><a href="{{ path('app_depotsvue_detail_depotsvue', {id: depot.id}) }}">{{ depot.depotit }}</a></h2>
          <p>créé le {{ depot.createdAt|date }} </p>
         <p>mis à jour le {{ depot.updatedAt|date }} </p> 
         <p> par {{ depot.user.nom }} </p>

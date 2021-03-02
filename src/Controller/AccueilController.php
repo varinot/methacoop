@@ -53,13 +53,13 @@ class AccueilController extends AbstractController
         }
  // ajouter template détail_depots.html.twig et
  // index.html.twig dans un dossier depotsvue
-  //  /**
-  //   * @Route("/", name="depots")
-  //   */
-  //  public function listdepots(): Response
-  //  {
-  //         return $this->render('security/login.html.twig');
-    //    }
+    /**
+     * @Route("/", name="app_depotsvue_index")
+     */
+    public function listdepots(): Response
+    {
+           return $this->render('depotsvue/index.html.twig');
+    }
     
     /**
      * @Route("/register", name="app_register")
