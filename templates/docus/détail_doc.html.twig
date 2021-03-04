@@ -10,11 +10,13 @@
     <h1>{{ doc.doctit }} </h1>
     <br>
        <h2>{{ doc.docref }}</h2> 
+       <p>Créée il ya {{ doc.createdAt|ago }} </p>
+       <p>Mise à jour il y a {{ doc.updatedAt|ago }} </p> 
     </br>
     <br>
         <img src="{{ (doc.imageName ? vich_uploader_asset(doc) : asset('build/
         images/placeholder.jpg')) }} ">
     <br></br>
-    <a href="{{ path('docus')}}">retour liste des documentations</a>
-    <a href="{{ path('accueil')}}">retour accueil</a>
+    <a href="{{ path('docus') }}">retour liste des documentations</a>
+    <a href="{{ path('accueil') }}">retour accueil</a>
 {% endblock %}

@@ -242,6 +242,15 @@ class AdminController extends AbstractController
 
             return $this->redirectToRoute('app_admin_gesdocs');
     }
+
+    /**
+     * @Route("/admin/gesdepots", name="app_admin_gesdepots")
+     */
+    public function gesdepots(DepotsRepository $depotsRepository): Response
+    {
+        $depots = $depotsRepository->findBy([], ['updatedAt' => 'DESC']);
+        return $this->render('admin/gesdepots_index.html.twig', compact('depots'));
+    }          
     
     /**
      * @Route("/admin/gesdepots_ajout", name="app_admin_gesdepots_ajout", methods={"GET", "POST"})
@@ -322,15 +331,6 @@ class AdminController extends AbstractController
     }
 
     /**
-     * @Route("/admin/gesdepots", name="app_admin_gesdepots")
-     */
-    public function gesdepots(DepotsRepository $depotsRepository): Response
-    {
-        $depots = $depotsRepository->findBy([], ['updatedAt' => 'DESC']);
-        return $this->render('admin/gesdepots_index.html.twig', compact('depots'));
-    }          
-    
-    /**
      * @Route("/admin/gesdocs_maj/({id}", name="app_admin_gesdocs_maj", methods={"GET", "PUT"})
      */
     public function documaj(Request $request, EntityManagerInterface $em, Docs $doc): Response 
@@ -365,5 +365,26 @@ class AdminController extends AbstractController
 
             return $this->redirectToRoute('app_admin_gesactus');
     }
-    
+/**
+     * @Route("/admin/gesdepots_detail/{id}", name="app_admin_gesdepots_detail")
+     */
+    public function admindepodetail(Depots $depot): Response
+    {  
+                   
+        return $this->render('admin/gesdepots_detail.html.twig',compact('depot'));
+    }
+        /**
+     * @Route("/admin/gesdepots_supp/{id}", name="app_admin_depots_supp", methods={"DELETE"})
+     */
+    public function adminsupdepot(Request $request, EntityManagerInterface $em, Depots $depot): Response
+    {   
+              
+        $em->remove($depot);
+        $em->flush();
+
+            $this->addFlash('info', 'Dépôt supprimé');
+
+            return $this->redirectToRoute('app_admin_gesdepots');
+    }
+
 }

@@ -1,12 +1,15 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Détail DEPOT MEMBRE{% endblock %}
+{% block title %}GESTION ADMIN DÉPÔT{% endblock %}
 
 {% block body %}
     <style>
+    
     </style>
-<div class="row">
-    <div class="col-md-10 mx-auto">
+    <h1>GESTION D'UN DÉPÔT ADMINISTRATEUR</h1>
+    <br>
+    <div class="row">
+       <div class="col-md-10 mx-auto">
         <br>
         <h1>{{ depot.depotit }}</h1>
         <br>
@@ -17,18 +20,19 @@
         <img src="{{ (depot.imageName ? vich_uploader_asset(depot) : asset('build/
         images/placeholder.jpg')) }} ">
         <br></br>
-       
+       <a href="{{ path('app_profile_depots_maj', {id: depot.id})}}">  mise à jour de mon dépôt</a>
        </br>
         <p>
-        {#    <form action="{{ path('app_profile_depots_supp',{id: depot.id}) }}" method="post">
+        <form action="{{ path('app_admin_depots_supp',{id: depot.id}) }}" method="post">
                 <input type="hidden" name="_method" value="DELETE">
                 <input type="submit" value="Suppression"> 
-            </form> #}
+        </form>
         </p>
-        <br>
-        <a href="{{ path('app_profile_depots_maliste')}}">retour gestion liste de vos dépôts</a><br>
-        <br>
-        <a href="{{ path('profile')}}">retour espace membre</a>
+        </div>
+        <div class="col-md-10 mx-auto">
+           <a href="{{ path('app_admin')}}">retour espace administrateur</a>
+            <a href="{{ path('accueil')}}">retour accueil</a>
+        </div>
     </div>
-</div>    
-    {% endblock %}
+
+{% endblock %}

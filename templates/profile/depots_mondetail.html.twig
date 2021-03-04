@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Détail DEPOT MEMBRE{% endblock %}
+{% block title %}GESTION DE MON DEPOT {% endblock %}
 
 {% block body %}
     <style>
@@ -11,19 +11,19 @@
         <h1>{{ depot.depotit }}</h1>
         <br>
        <p>{{ depot.depoavis }}</p> 
-       <p>Créé il y a {{ depot.createdAt|ago }} </p> 
-        <p>Modifié il y a {{ depot.updatedAt|ago }} </p> 
+       <p>créé le {{ depot.createdAt|date }} </p> 
+        <p>modifié le {{ depot.updatedAt|date }} </p> 
         <br>
         <img src="{{ (depot.imageName ? vich_uploader_asset(depot) : asset('build/
         images/placeholder.jpg')) }} ">
         <br></br>
-       
+       <a href="{{ path('app_profile_depots_maj', {id: depot.id})}}">  mise à jour de mon dépôt</a>
        </br>
         <p>
-        {#    <form action="{{ path('app_profile_depots_supp',{id: depot.id}) }}" method="post">
+       <form action="{{ path('app_profile_depots_supp',{id: depot.id}) }}" method="post">
                 <input type="hidden" name="_method" value="DELETE">
                 <input type="submit" value="Suppression"> 
-            </form> #}
+       </form> 
         </p>
         <br>
         <a href="{{ path('app_profile_depots_maliste')}}">retour gestion liste de vos dépôts</a><br>

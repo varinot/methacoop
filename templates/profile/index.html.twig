@@ -7,11 +7,12 @@
     
 </style>
 
-<div class="example-wrapper">
-    <h1>Bonjour </h1>
+<div class="row">
+    <div class="col-md-10 mx-auto">
+    <h1>Bienvenue dans l'espace MEMBRE </h1>
 
-<br></br>
-        <div>
+    <br></br>
+        <div class="col-md-6 mx-auto">
         <a href="{{ path('app_profile_annuaire') }}">Annuaire des membres</a><br>
         <br></br>
         <a href="{{ path('app_profile_depots_liste') }}">La liste des dépôts membres</a><br>
@@ -19,6 +20,7 @@
         <a href="{{ path('app_profile_depots_ajout') }}">Ajout d'un dépôt</a><br>
         <br></br>
         <a href="{{ path('app_profile_depots_maliste') }}">votre liste de dépôts</a><br>
-    </div> 
+        </div> 
+    </div>
 </div>
 {% endblock %}

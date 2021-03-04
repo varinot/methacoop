@@ -5,7 +5,8 @@ namespace App\Controller;
 use App\Entity\User;
 use App\Entity\Depots;
 use App\Form\DepoType;
-use App\Service\FileUploader;
+use App\Form\DepodocType;
+
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -59,7 +60,7 @@ class ProfileController extends AbstractController
      * @Route("/profile/depots_ajout", name="app_profile_depots_ajout", methods={"GET", "POST"})
      */
     
-    public function ajoudepot(Request $request, SluggerInterface $slugger, FileUploader $fileUploader, EntityManagerInterface $em, UserRepository $userRepository): Response 
+    public function ajoudepot(Request $request, EntityManagerInterface $em): Response 
     { 
         $depot = new Depots;
         
@@ -69,34 +70,10 @@ class ProfileController extends AbstractController
         
         if ($form->isSubmitted() && $form->isValid())
         {
-          /** @var UploadedFile $depoFile */ 
-
-            $depoFile = $form->get('depoFileName')->getData();
-
-            if ($depoFile)
-            {
-                $originalFilename = pathinfo($depoFile->getClientOriginalName(), PATHINFO_FILENAME);
-                
-                $safeFilename = $slugger->slug($originalFilename);
-                $newFilename = $safeFilename.'-'.uniqid().'.'.$depoFile->guessExtension();
-                try {
-                    $depoFile->move(
-                        $this->getParameter('depofichiers_directory'),
-                        $newFilename
-                    );
-                    }
-                catch (FileException $e)
-                {
-
-                }  
-                $depoFileName = $fileUploader->upload($depoFile);
-                $depot->setDepoFilename($depoFileName); 
-                $depot->setDepoFilename($newFilename); 
-            }
-                
+             
             $depot->setUser($this->getUser());
             $em->persist($depot);
-                    //  $util = $userRepository->getUser(depot.id); 
+           //  $util = $userRepository->getUser(depot.id); 
                    // { 
                         //  $user->setnbdepot('nbdepot + 1');
                         //  $em->persist($user);
@@ -111,10 +88,7 @@ class ProfileController extends AbstractController
         }
         return $this->render('profile/depots_ajout.html.twig', ['depotform' => $form->createView()]);
     }
-
     
-
-   
     /**
      * @Route("/profile/annuaire", name="app_profile_annuaire")
      */
@@ -135,10 +109,18 @@ class ProfileController extends AbstractController
     }
 
     /**
+     * @Route("/profile/depots_mondetail/{id}", name="app_profile_depots_mondetail")
+     */
+    public function mondepotdetail(Depots $depot): Response
+    {  
+                   
+        return $this->render('profile/depots_mondetail.html.twig',compact('depot'));
+    }
+    /**
      * @Route("/profile/depots_maj/({id}", name="app_profile_depots_maj", methods={"GET", "PUT"})
      */
    
-    public function depotmaj(Request $request, EntityManagerInterface $em, Depots $depot, User $user): Response 
+    public function depotmaj(Request $request, EntityManagerInterface $em, Depots $depot): Response 
     { 
      
         $form = $this->createForm(DepoType::class, $depot, ['method' => 'PUT']);
@@ -156,19 +138,19 @@ class ProfileController extends AbstractController
             return $this->redirectToRoute('app_profile_depots_maliste');
         }
         return $this->render('profile/depots_maj.html.twig', ['depoform' => $form->createView()]);
-   
     }
- ///**
-  //   * @Route("/profile/depots_supp/{id}", name="app_profile_depots_supp", methods={"DELETE"})
-  //   */
-    //public function supdepot(Request $request,EntityManagerInterface $em,Depots $depot): Response
-    //{   
-      //  if            
-      //      $em->remove($depot);
-      //      $em->flush();
+    
+    /**
+     * @Route("/profile/depots_supp/{id}", name="app_profile_depots_supp", methods={"DELETE"})
+     */
+    public function supdepot(Request $request,EntityManagerInterface $em,Depots $depot): Response
+    {   
+                    
+        $em->remove($depot);
+        $em->flush();
 
-//            $this->addFlash('info', 'Dépôt supprimé');
+        $this->addFlash('info', 'Dépôt supprimé');
 
-  //          return $this->redirectToRoute('app_profile_depots_index');
-  //  }
+        return $this->redirectToRoute('app_profile_depots_maliste');
+    }
 }

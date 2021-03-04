@@ -31,7 +31,15 @@ class AccueilController extends AbstractController
     {
         return $this->render('actus/index.html.twig');
     }
- 
+     
+     /**
+     * @Route("/", name="app_mentiongen")
+     */
+    public function mentiongen(): Response
+    {
+        return $this->render('mentiongen/index.html.twig');
+    }
+     
     /**
      * @Route("/", name="docus")
      */

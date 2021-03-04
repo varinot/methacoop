@@ -11,8 +11,8 @@
         <h1>{{ doc.doctit }}</h1>
         <br>
        <p>{{ doc.docref }}</p> 
-       <p>créée le {{ doc.createdAt|date }} </p> 
-        <p>modifiée le {{ doc.updatedAt|date }} </p> 
+       <p>Créée il y a {{ doc.createdAt|ago }} </p> 
+        <p>Modifiée il y a {{ doc.updatedAt|ago }} </p> 
         <br>
         <img src="{{ (doc.imageName ? vich_uploader_asset(doc) : asset('build/
         images/placeholder.jpg')) }} ">

@@ -13,7 +13,7 @@
     {% for util in utils %}
     <div>
         <h2><a href="{{ path('app_admin_gesusers_detail', {id: util.id}) }}">{{ util.nom }} </a></h2>
-        <p>compte créé le {{ util.createdAt|date }} </p>
+        <p>Compte créé il y a {{ util.createdAt|ago }} </p>
     </div>
     {% endfor %}
     
