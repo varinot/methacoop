@@ -11,8 +11,8 @@
         <h1>{{ depot.depotit }}</h1>
         <br>
        <p>{{ depot.depoavis }}</p> 
-       <p>créé le {{ depot.createdAt|date }} </p> 
-        <p>modifié le {{ depot.updatedAt|date }} </p> 
+       <p>créé le {{ depot.createdAt|date('d-m-Y') }} </p> 
+        <p>modifié le {{ depot.updatedAt|date('d-m-Y') }} </p> 
         <br>
         <img src="{{ (depot.imageName ? vich_uploader_asset(depot) : asset('build/
         images/placeholder.jpg')) }} ">

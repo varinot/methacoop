@@ -14,8 +14,8 @@
     {% for doc in docs %}
     <div>
         <h2><a href="{{ path('app_docus_détail_doc', {id: doc.id}) }}">{{ doc.doctit }}</a></h2>
-        <p>Créée il ya {{ doc.createdAt|ago }} </p>
-        <p>Mise à jour il y a {{ doc.updatedAt|ago }} </p> 
+        <p>Créée le {{ doc.createdAt|date('d-m-Y') }} </p>
+        <p>Mise à jour le {{ doc.updatedAt|date('d-m-Y') }} </p> 
         
     </div>
     {% endfor %}   

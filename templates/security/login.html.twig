@@ -1,24 +1,19 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Log in{% endblock %}
+{% block title %}connexion{% endblock %}
 
 {% block body %}
 <div class="row">
     <div class="col-md-10 mx-auto">
         <br>
         <form method="post">
-            {% if error %}
-                <div class="alert alert-danger">
-                    {{ error.messageKey|trans(error.messageData, 'security') }}
-                </div>
-            {% endif %}
-
+            
             {% if app.user %}
                 <div class="mb-3">
                 Vous êtes connecté avec {{ app.user.username }},    
                 <a href="{{ path('app_logout') }}">Logout</a>
                 </div>
-            {% endif %}
+            {% else %}
             <br>
             <h1 class="h3 mb-3 font-weight-normal">
             Veuillez vous identifier
@@ -35,7 +30,7 @@
             <input type="password" name="password" id="inputPassword" class="form-control" required>
 
                     <input type="hidden" name="_csrf_token"
-           value="{{ csrf_token('authenticate'~ app.user) }}">
+             value="{{ csrf_token('authenticate'~ app.user) }}">
     
     
             <div> 
@@ -47,15 +42,21 @@
                 </div>
             <a href="#"> Mot de passe oublié?</a>
             </div>
-            <button class="btn btn-lg btn-primary" type="submit">
-            veuillez valider votre authentification
-            </button>
+                <button class="btn btn-lg btn-primary" type="submit">
+                veuillez valider votre authentification
+                </button>
 
-            <p class="mt-8 mb-5 text-center text-muted">
-            N'êtes-vous pas encore membre?
-            <a href="{{ path('app_register') }}">
-            Veuillez vous inscrire et créer votre compte
-            </a> 
+                <p class="mt-8 mb-5 text-center text-muted">
+                N'êtes-vous pas encore membre?
+                <a href="{{ path('app_register') }}">
+                Veuillez vous inscrire et créer votre compte
+                 </a>
+            {% endif %}
+            {% if error %}
+                <div class="alert alert-danger">
+                    {{ error.messageKey|trans(error.messageData, 'security') }}
+                </div>
+            {% endif %} 
         </form>
     </div>
 </div> 
