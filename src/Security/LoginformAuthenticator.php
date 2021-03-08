@@ -54,12 +54,12 @@ class LoginformAuthenticator extends AbstractFormLoginAuthenticator implements P
         $credentials = [
             'email' => $request->request->get('email'),
             'password' => $request->request->get('password'),
-            'csrf_token' => $request->request->get('_csrf_token'),
+            'csrf_token' => $request->request->get('csrf_token'),
         ];
-       // $request->getSession()->set(
-       //     Security::LAST_USERNAME,
-       //     $credentials['email']
-       // );
+        $request->getSession()->set(
+            Security::LAST_USERNAME,
+            $credentials['email']
+        );
 
         return $credentials;
     }
@@ -84,11 +84,16 @@ class LoginformAuthenticator extends AbstractFormLoginAuthenticator implements P
 
     public function checkCredentials($credentials, UserInterface $user)
     {
-        return $this->passwordEncoder->isPasswordValid($user, $credentials['password']);
+       // return $this->passwordEncoder->isPasswordValid($user, $credentials['password']);
+        if (! $this->passwordEncoder->isPasswordValid($user, $credentials['password'])) 
+        {
+            throw new CustomUserMessageAuthenticationException('mauvais password.');
+        }
+        return true;
     }
 
     /**
-     * Used to upgrade (rehash) the user's password automatically over time.
+     * Utilisation d'une mise à jour de recryptage automatique mot de passe utilisateur.
      */
     public function getPassword($credentials): ?string
     {
@@ -101,11 +106,24 @@ class LoginformAuthenticator extends AbstractFormLoginAuthenticator implements P
         if ($targetPath = $this->getTargetPath($request->getSession(), $providerKey)) {
             return new RedirectResponse($targetPath);
         }
+   //     if ($this->getUser($authenticationUtils)) 
+     //   {
+           $roles = $token->getRoleNames();
 
+               if($roles === ["ROLE_ADMIN", "ROLE_USER"])
+                {    
+                   return new RedirectResponse('admin');
+                }
+               if($roles === ["ROLE_USER"])
+                   {    
+                    return new RedirectResponse('profile');
+                   }
+          
+      //  }   
        // if ($user)
        // {}
         // throw new \Exception('TODO: provide a valid redirect inside '.__FILE__);
-        return new RedirectResponse($this->urlGenerator->generate('profile'));
+//return new RedirectResponse($this->urlGenerator->generate('accueil'));
     }
 
     protected function getLoginUrl()

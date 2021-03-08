@@ -24,11 +24,6 @@ use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\String\Slugger\SluggerInterface;
 
-
-/**
- * @[IsGranted("ROLE_USER")]
- */
-
 class ProfileController extends AbstractController
 {
     /**

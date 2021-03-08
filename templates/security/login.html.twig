@@ -11,7 +11,7 @@
             {% if app.user %}
                 <div class="mb-3">
                 Vous êtes connecté avec {{ app.user.username }},    
-                <a href="{{ path('app_logout') }}">Logout</a>
+               {# <a href="{{ path('app_logout') }}">Logout</a> #}
                 </div>
             {% else %}
             <br>
@@ -19,18 +19,18 @@
             Veuillez vous identifier
             </h1>
 
-            <label for="inputEmail">
+            <label for="email">
             Veuillez renseigner votre adresse Email
             </label>
-            <input type="email" value="" name="email" id="inputEmail" class="form-control" required autofocus>
+            <input type="email" value="{{ last_username }}" name="email" id="email" class="form-control" required autofocus>
 
-            <label for="inputPassword">
+            <label for="password">
             Veuillez indiquer votre Mot de passe
             </label>
-            <input type="password" name="password" id="inputPassword" class="form-control" required>
+            <input type="password" name="password" id="password" class="form-control" required>
 
-                    <input type="hidden" name="_csrf_token"
-             value="{{ csrf_token('authenticate'~ app.user) }}">
+                    <input type="hidden" name="csrf_token"
+             value="{{ csrf_token('authenticate') }}">
     
     
             <div> 
