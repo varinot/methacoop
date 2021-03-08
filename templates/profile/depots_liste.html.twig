@@ -1,0 +1,30 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}les DEPOTS{% endblock %}
+
+{% block body %}
+<style>
+    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
+    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
+</style>
+
+<div class="example-wrapper">
+    <h1>Liste DES DÉPÔTS Membres</h1>
+    <br>
+    </br>
+    {% for depot in depots %}
+    <div>
+    
+    <h2><a href="{{ path('app_profile_depots_detail', {id: depot.id}) }}">{{ depot.depotit }} </a></h2>
+        <p>Créé le {{ depot.createdAt|date('d-m-Y') }} </p>
+        <p>Mis à jour le {{ depot.updatedAt|date('d-m-Y') }} </p> 
+        <p> par {{ depot.user.nom }} </p>
+    </div>
+    {% endfor %}
+    <div>
+        <h2><a href="{{ path('app_profile_depots_ajout') }}"> Création d'un Dépôt</a></h2>
+        <p>  --------------        </p>
+        <h2><a href="{{ path('profile')}}">retour espace membre</a></h2>
+    </div>  
+</div>
+{% endblock %}

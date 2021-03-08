@@ -10,7 +10,7 @@
     <h1>{{ new.newstit }}</h1>
     <br>
        <p>{{ new.newscont }}</p> 
-       <p>créé le {{ new.createdAt|date }} </p> 
+       <p>Ajoutée le {{ new.createdAt|date('d-m-Y') }} </p> 
     </br>
      <form action="{{ path('app_admin_gesactus_supp',{id: new.id}) }}" method="post">
         <input type="hidden" name="_method" value="DELETE">

@@ -54,7 +54,7 @@ class LoginformAuthenticator extends AbstractFormLoginAuthenticator implements P
         $credentials = [
             'email' => $request->request->get('email'),
             'password' => $request->request->get('password'),
-            'csrf_token' => $request->request->get('_csrf_token'),
+            'csrf_token' => $request->request->get('csrf_token'),
         ];
         $request->getSession()->set(
             Security::LAST_USERNAME,
@@ -66,16 +66,17 @@ class LoginformAuthenticator extends AbstractFormLoginAuthenticator implements P
 
     public function getUser($credentials, UserProviderInterface $userProvider)
     {
+        
         $token = new CsrfToken('authenticate', $credentials['csrf_token']);
         if (!$this->csrfTokenManager->isTokenValid($token)) {
             throw new InvalidCsrfTokenException();
         }
 
         $user = $this->entityManager->getRepository(User::class)->findOneBy(['email' => $credentials['email']]);
-
+          
         if (!$user) {
             // fail authentication with a custom error
-            throw new CustomUserMessageAuthenticationException('Email inconnu pour identification vous devez vous inscrire préalablement.');
+            throw new CustomUserMessageAuthenticationException('Vous êtes inconnu comme membre enregistré, pour identification vous devez vous inscrire préalablement.');
         }
 
         return $user;
@@ -83,11 +84,16 @@ class LoginformAuthenticator extends AbstractFormLoginAuthenticator implements P
 
     public function checkCredentials($credentials, UserInterface $user)
     {
-        return $this->passwordEncoder->isPasswordValid($user, $credentials['password']);
+       // return $this->passwordEncoder->isPasswordValid($user, $credentials['password']);
+        if (! $this->passwordEncoder->isPasswordValid($user, $credentials['password'])) 
+        {
+            throw new CustomUserMessageAuthenticationException('mauvais password.');
+        }
+        return true;
     }
 
     /**
-     * Used to upgrade (rehash) the user's password automatically over time.
+     * Utilisation d'une mise à jour de recryptage automatique mot de passe utilisateur.
      */
     public function getPassword($credentials): ?string
     {
@@ -100,10 +106,24 @@ class LoginformAuthenticator extends AbstractFormLoginAuthenticator implements P
         if ($targetPath = $this->getTargetPath($request->getSession(), $providerKey)) {
             return new RedirectResponse($targetPath);
         }
+   //     if ($this->getUser($authenticationUtils)) 
+     //   {
+           $roles = $token->getRoleNames();
 
-        // For example : return new RedirectResponse($this->urlGenerator->generate('some_route'));
+               if($roles === ["ROLE_ADMIN", "ROLE_USER"])
+                {    
+                   return new RedirectResponse('admin');
+                }
+               if($roles === ["ROLE_USER"])
+                   {    
+                    return new RedirectResponse('profile');
+                   }
+          
+      //  }   
+       // if ($user)
+       // {}
         // throw new \Exception('TODO: provide a valid redirect inside '.__FILE__);
-        return new RedirectResponse($this->urlGenerator->generate('docus'));
+//return new RedirectResponse($this->urlGenerator->generate('accueil'));
     }
 
     protected function getLoginUrl()

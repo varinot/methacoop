@@ -1,0 +1,32 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}ANNUAIRE MEMBRES{% endblock %}
+
+{% block body %}
+<style>
+
+</style>
+
+<div class="row">
+    <div class="col-md-10 mx-auto">
+        <h1>ANNUAIRE DES MEMBRES </h1>
+        <br>
+        </br>
+        {% for user in users %}
+        <div>
+            {% if user.nom != null %}
+                <h4> Prénom ou n°Siret : {{ user.prenom }} - Nom ou Raison Sociale : {{ user.nom }} </h4>
+                <p> Adresse : {{ user.numvoie }} - {{ user.typvoie }} - {{ user.voienom }} </p>  
+                <p> {{ user.codpost }} - {{ user.ville }} </p>
+                <p>_______________________________________________________________________________________</p>
+            {% endif %}
+        </div>
+        {% endfor %}
+        <div>
+            <h2><a href="{{ path('app_profile_depots_liste') }}">retour liste des dépôts</a></h2>
+            <p>  --------------------------------</p>
+            <h2><a href="{{ path('profile')}}">retour espace membre</a></h2>
+        </div>  
+    </div>
+</div>    
+{% endblock %}

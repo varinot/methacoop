@@ -15,8 +15,8 @@
     {% for doc in docs %}
     <div>
         <h2><a href="{{ path('app_admin_gesdocs_detail', {id: doc.id}) }}">{{ doc.doctit }} </a></h2>
-        <p>créée le {{ doc.createdAt|date }} </p>
-        <p>mise à jour le {{ doc.updatedAt|date }} </p> 
+        <p>Créée le {{ doc.createdAt|date('d-m-Y') }} </p>
+        <p>Mise à jour le {{ doc.updatedAt|date('d-m-Y') }} </p> 
     </div>
     {% endfor %}
     <div>

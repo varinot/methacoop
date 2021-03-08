@@ -33,23 +33,24 @@ class RegistrationController extends AbstractController
     public function register(Request $request, UserPasswordEncoderInterface $passwordEncoder, GuardAuthenticatorHandler $guardHandler, LoginformAuthenticator $authenticator, ORMEntityManagerInterface $em): Response
     {
         // si déjà connecté on redirige vers accueil quand la vérif de connection
-       // if (this->getUser()){
-         //   this->addFlash('erreur', 'vous êtes déjà connecté');
-
-           // return $this->redirectToRoute('accueil);
-        //  }
+//        if (this->getUser()){
+//         this->addFlash('erreur', 'vous êtes déjà connecté');
+//
+//        return $this->redirectToRoute('accueil');
+//        }
         $user = new User;
         $form = $this->createForm(RegistrationFormType::class, $user);
         $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()) {
+        if ($form->isSubmitted() && $form->isValid())
+        {
             // encode the plain password
             $user->setPassword(
                 $passwordEncoder->encodePassword(
                     $user,
-                    $form->get('plainPassword')->getData()
-                )
-            );
+                    $form->get('plainPassword')->getData()));
+                    
+            $user->setRoles(["ROLE_USER"]);
 
             // utilisation de EntityManagerInterface pour éviter les getdoctrine et getmanager
             $em->persist($user);
@@ -71,6 +72,7 @@ class RegistrationController extends AbstractController
                 $authenticator,
                 'main' // firewall name in security.yaml
             );
+            return $this->redirectToRoute('profile');
         }
 
         return $this->render('registration/register.html.twig', [
@@ -78,25 +80,25 @@ class RegistrationController extends AbstractController
         ]);
     }
 
-    /**
-     * @Route("/verify/email", name="app_verify_email")
-     */
-    public function verifyUserEmail(Request $request): Response
-    {
-        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
+ //   /**
+ //    * @Route("/verify/email", name="app_verify_email")
+ //    */
+ //   public function verifyUserEmail(Request $request): Response
+ //   {
+//        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
 
-        // validate email confirmation link, sets User::isVerified=true and persists
-        try {
-            $this->emailVerifier->handleEmailConfirmation($request, $this->getUser());
-        } catch (VerifyEmailExceptionInterface $exception) {
-            $this->addFlash('verify_email_error', $exception->getReason());
+//        // validate email confirmation link, sets User::isVerified=true and persists
+//        try {
+//            $this->emailVerifier->handleEmailConfirmation($request, $this->getUser());
+//        } catch (VerifyEmailExceptionInterface $exception) {
+//            $this->addFlash('verify_email_error', $exception->getReason());
 
-            return $this->redirectToRoute('app_register');
-        }
+//            return $this->redirectToRoute('app_register');
+//        }
 
         // @TODO Change the redirect on success and handle or remove the flash message in your templates
-        $this->addFlash('OK', 'votre email est vérifié.');
+//        $this->addFlash('OK', 'votre email est vérifié.');
 // redirection vers page accueil si email vérifié 
-        return $this->redirectToRoute('accueil');
-    }
+//        return $this->redirectToRoute('accueil');
+//    }
 }

@@ -1,41 +1,36 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Log in{% endblock %}
+{% block title %}connexion{% endblock %}
 
 {% block body %}
 <div class="row">
     <div class="col-md-10 mx-auto">
         <br>
         <form method="post">
-            {% if error %}
-                <div class="alert alert-danger">
-                    {{ error.messageKey|trans(error.messageData, 'security') }}
-                </div>
-            {% endif %}
-
+            
             {% if app.user %}
                 <div class="mb-3">
                 Vous êtes connecté avec {{ app.user.username }},    
-                <a href="{{ path('app_logout') }}">Logout</a>
+               {# <a href="{{ path('app_logout') }}">Logout</a> #}
                 </div>
-            {% endif %}
+            {% else %}
             <br>
             <h1 class="h3 mb-3 font-weight-normal">
             Veuillez vous identifier
             </h1>
 
-            <label for="inputEmail">
+            <label for="email">
             Veuillez renseigner votre adresse Email
             </label>
+            <input type="email" value="{{ last_username }}" name="email" id="email" class="form-control" required autofocus>
 
-            <input type="email" value="{{ last_username }}" name="email" id="inputEmail" class="form-control" required autofocus>
-            <label for="inputPassword">
+            <label for="password">
             Veuillez indiquer votre Mot de passe
             </label>
-            <input type="password" name="password" id="inputPassword" class="form-control" required>
+            <input type="password" name="password" id="password" class="form-control" required>
 
-                    <input type="hidden" name="_csrf_token"
-           value="{{ csrf_token('authenticate'~ app.user) }}">
+                    <input type="hidden" name="csrf_token"
+             value="{{ csrf_token('authenticate') }}">
     
     
             <div> 
@@ -47,15 +42,21 @@
                 </div>
             <a href="#"> Mot de passe oublié?</a>
             </div>
-            <button class="btn btn-lg btn-primary" type="submit">
-            veuillez valider votre authentification
-            </button>
+                <button class="btn btn-lg btn-primary" type="submit">
+                veuillez valider votre authentification
+                </button>
 
-            <p class="mt-8 mb-5 text-center text-muted">
-            N'êtes-vous pas encore membre?
-            <a href="{{ path('app_register') }}">
-            Veuillez créer votre compte
-            </a> 
+                <p class="mt-8 mb-5 text-center text-muted">
+                N'êtes-vous pas encore membre?
+                <a href="{{ path('app_register') }}">
+                Veuillez vous inscrire et créer votre compte
+                 </a>
+            {% endif %}
+            {% if error %}
+                <div class="alert alert-danger">
+                    {{ error.messageKey|trans(error.messageData, 'security') }}
+                </div>
+            {% endif %} 
         </form>
     </div>
 </div> 

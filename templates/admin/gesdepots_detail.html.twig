@@ -1,0 +1,38 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}GESTION ADMIN DÉPÔT{% endblock %}
+
+{% block body %}
+    <style>
+    
+    </style>
+    <h1>GESTION D'UN DÉPÔT ADMINISTRATEUR</h1>
+    <br>
+    <div class="row">
+       <div class="col-md-10 mx-auto">
+        <br>
+        <h1>{{ depot.depotit }}</h1>
+        <br>
+       <p>{{ depot.depoavis }}</p> 
+       <p>Créé le {{ depot.createdAt|date('d-m-Y')}} </p> 
+        <p>Modifié le {{ depot.updatedAt|date('d-m-Y') }} </p> 
+        <br>
+        <img src="{{ (depot.imageName ? vich_uploader_asset(depot) : asset('build/
+        images/placeholder.jpg')) }} ">
+        <br></br>
+       <a href="{{ path('app_profile_depots_maj', {id: depot.id})}}">  mise à jour de mon dépôt</a>
+       </br>
+        <p>
+        <form action="{{ path('app_admin_depots_supp',{id: depot.id}) }}" method="post">
+                <input type="hidden" name="_method" value="DELETE">
+                <input type="submit" value="Suppression"> 
+        </form>
+        </p>
+        </div>
+        <div class="col-md-10 mx-auto">
+           <a href="{{ path('app_admin')}}">retour espace administrateur</a>
+            <a href="{{ path('accueil')}}">retour accueil</a>
+        </div>
+    </div>
+
+{% endblock %}

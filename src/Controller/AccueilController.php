@@ -17,7 +17,7 @@ class AccueilController extends AbstractController
     }
     
      /**
-     * @Route("/", name="propos")
+     * @Route("/propos", name="propos")
      */
     public function apropoindex(): Response
     {
@@ -25,15 +25,16 @@ class AccueilController extends AbstractController
     }
      
     /**
-     * @Route("/", name="actus")
+     * @Route("/actus", name="actus")
      */
     public function actusindex(): Response
     {
         return $this->render('actus/index.html.twig');
     }
- 
+     
+          
     /**
-     * @Route("/", name="docus")
+     * @Route("/docus", name="docus")
      */
     public function docusindex(): Response
     {
@@ -47,15 +48,34 @@ class AccueilController extends AbstractController
     {
          if ($this->getUser($authenticationUtils)) 
          {
-           return $this->redirectToRoute('app_register');
+           return $this->redirectToRoute('propos');
          }
          return $this->render('security/login.html.twig');
         }
+ // ajoutée vue détail_depots.html.twig et
+ // index.html.twig dans un dossier depotsvue
     /**
-     * @Route("/register", name="app_register")
+     * @Route("/depotsvue", name="app_depotsvue_index")
+     */
+    public function listdepots(): Response
+    {
+           return $this->render('depotsvue/index.html.twig');
+    }
+    
+    /**
+     * @Route("/registration", name="app_register")
      */
     public function register(): Response
     {
         return $this->render('registration/register.html.twig');
     }
+         
+     /**
+     * @Route("/mentiongen", name="app_mentiongen")
+     */
+    public function mentiongen(): Response
+    {
+        return $this->render('mentiongen/index.html.twig');
+    }
+     
 }
