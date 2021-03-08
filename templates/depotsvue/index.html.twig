@@ -16,7 +16,11 @@
         <h2><a href="{{ path('app_depotsvue_detail_depotsvue', {id: depot.id}) }}">{{ depot.depotit }}</a></h2>
         <p>Créé le {{ depot.createdAt|date('d-m-Y')}} </p>
         <p>Mis à jour le {{ depot.updatedAt|date('d-m-Y') }} </p> 
-        <p> par {{ depot.user.nom }} </p>
+        {% if depot.user.nom != '' %}
+            <p> par {{ depot.user.nom }} </p>
+        {% else %}
+            <p> par ADMINISTRATEUR </p>
+        {% endif %}
     </div>
     {% endfor %}   
     

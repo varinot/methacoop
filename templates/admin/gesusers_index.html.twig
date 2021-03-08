@@ -11,10 +11,12 @@
     <h1>GESTION DES MEMBRES UTILISATEURS</h1>
     <br>
     {% for util in utils %}
+    {% if util.nom != '' %}
     <div>
         <h2><a href="{{ path('app_admin_gesusers_detail', {id: util.id}) }}">{{ util.nom }} </a></h2>
         <p>Compte créé le {{ util.createdAt|date('d-m-Y') }} </p>
     </div>
+    {% endif %}
     {% endfor %}
     
     <div>
