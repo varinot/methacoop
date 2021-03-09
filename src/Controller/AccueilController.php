@@ -77,5 +77,13 @@ class AccueilController extends AbstractController
     {
         return $this->render('mentiongen/index.html.twig');
     }
+         
+     /**
+     * @Route("/cgu", name="app_cgu")
+     */
+    public function condigenu(): Response
+    {
+        return $this->render('cgu/cgu.index.html.twig');
+    }
      
 }

@@ -18,8 +18,13 @@
     <h2><a href="{{ path('app_profile_depots_detail', {id: depot.id}) }}">{{ depot.depotit }} </a></h2>
         <p>Créé le {{ depot.createdAt|date('d-m-Y') }} </p>
         <p>Mis à jour le {{ depot.updatedAt|date('d-m-Y') }} </p> 
+        {% if depot.user.nom != '' %}
         <p> par {{ depot.user.nom }} </p>
+        {% else %}
+        <p> par ADMINISTRATEUR </p>
+        {% endif %}
     </div>
+    <p>{{ depot.deporef }} </p>
     {% endfor %}
     <div>
         <h2><a href="{{ path('app_profile_depots_ajout') }}"> Création d'un Dépôt</a></h2>
