@@ -272,7 +272,7 @@ class AdminController extends AbstractController
             
             $em->flush();
 
-            $this->addFlash('success', 'Dépôt créé avec succès par {{depot.user.nom }}' );
+            $this->addFlash('success', 'Dépôt créé avec succès par administrateur' );
 
             return $this->redirectToRoute('app_admin_gesdepots');
         }

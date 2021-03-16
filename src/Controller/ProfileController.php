@@ -77,7 +77,7 @@ class ProfileController extends AbstractController
                         //         return $user;
             $em->flush();
 
-            $this->addFlash('success', 'Dépôt créé');
+            $this->addFlash('success', 'Dépôt créé avec succès ');
                  
             return $this->redirectToRoute('app_profile_depots_maliste');
         }
