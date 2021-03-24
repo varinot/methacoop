@@ -2,8 +2,9 @@
 <html>
     <head>
         <meta charset="UTF-8">
-        <title>{% block title %}Welcome!{% endblock %}</title>
+        <title>{% block title %}METHACOOP{% endblock %}</title>
         {% block stylesheets %}
+        {# utilisation de bootstrap pour gérer le stylesheet #}
             <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
             <style>
             body {
@@ -27,15 +28,17 @@
         {% endblock %}
         
         {% block javascripts %}
+        {# utilisation de bootstrap pour gérer le javascript #}
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js" integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0" crossorigin="anonymous"></script>
         {% endblock %}
     </head>
     <body>
+    {# gestion des messages d'état d'exécution d'opération CRUD#}
         {{ include('partials/_flash_messages.html.twig') }}
-          
+    {# gestion des actions d'activation des liens de la barre de navigation #}     
         {{ include('partials/_nav.html.twig') }} 
         {% block body %}{% endblock %}
-    
+    {# gestion des actions d'activation des liens du bas de page et configuration du bas de page #}
         {{ include('partials/_footer.html.twig') }}
     </body>
 </html>

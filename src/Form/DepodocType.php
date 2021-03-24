@@ -12,22 +12,21 @@ use Symfony\Component\Validator\Constraints\File;
 
 class DepodocType extends AbstractType
 {
-    public function buildForm(FormBuilderInterface $builder, array $options)
+    public function buildForm(FormBuilderInterface $builder, array $options):void
     {
-        $builder
-            ->add('depotit')
-            ->add('depoavis')
-            ->add('deporef')
-            ->add('depocorres')
-               
-            ->add('depoFilename', FileType::class, [
-               'label' => 'Document (Fichier PDF) à déposer',
-               'mapped' => false, 
-               'required' => false,
-               
+        $builder->add('depoFilename', VichFileType::class, [
+            'label' => 'Document (Fichier PDF) à déposer',
+            'mapped' => false, 
+            'required' => false,
+            'allow_delete' => true,
+            'delete_label' => 'Suppression du document déposé',
+            'download_label' => 'Téléchargement',
+            'download_uri' => true,
+            'asset_helper' => true,
+        
                'constraints' => [
                 new File([
-                    'maxSize' => '8M',
+                    'maxSize' => '18M',
                     'mimeTypes' => [
                         'application/pdf',
                         'application/x-pdf',
